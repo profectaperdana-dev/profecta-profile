@@ -1,0 +1,38 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Live_Chat_Room {
+  id                Int                 @id @default(autoincrement())
+  uniqid            String              @unique @db.VarChar(255)
+  name              String              @db.VarChar(255)
+  email             String
+  isOnline          Boolean             @default(false)
+  createdAt         DateTime            @default(now())
+  updatedAt         DateTime            @updatedAt
+  Live_Chat_Message Live_Chat_Message[]
+}
+
+enum Role {
+  Sender
+  Receiver
+}
+
+model Live_Chat_Message {
+  id          Int            @id @default(autoincrement())
+  room        Live_Chat_Room @relation(fields: [uniqid_room], references: [uniqid])
+  uniqid_room String         @db.VarChar(255)
+  role        Role           @default(Receiver)
+  isReaded    Boolean
+  message     String         @db.Text
+  createdAt   DateTime       @default(now())
+  updatedAt   DateTime       @updatedAt
+}
