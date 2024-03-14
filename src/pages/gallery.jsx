@@ -1,13 +1,13 @@
 import React from "react";
 import Wrapper from "../layout/wrapper";
 import SEO from "../common/seo";
-import Faq from "../components/faq";
+import Gallery from "../components/gallery";
 
 const index = () => {
   return (
     <Wrapper>
-      <SEO pageTitle={"FAQ - Profecta Perdana"} />
-      <Faq />
+      <SEO pageTitle={"Gallery - Profecta Perdana"} />
+      <Gallery />
     </Wrapper>
   );
 };

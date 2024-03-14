@@ -8,11 +8,11 @@ import Footer from "@/src/layout/footers/footer";
 const Contact = () => {
   return (
     <>
-      {/* <HeaderOne /> */ }
-      <Breadcrumb title={ " Contact" } innertitle={ "Contact Us" } />
+      {/* <HeaderOne /> */}
+      <Breadcrumb title={" Contact"} innertitle={"Contact Us"} />
       <ContactArea />
       <ContactInfo />
-      {/* <Footer /> */ }
+      {/* <Footer /> */}
     </>
   );
 };

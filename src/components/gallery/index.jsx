@@ -2,19 +2,19 @@ import Breadcrumb from "@/src/common/breadcrumbs/breadcrumb";
 import Footer from "@/src/layout/footers/footer";
 import HeaderOne from "@/src/layout/headers/header";
 import React from "react";
-import FaqArea from "./faq-area";
-import FactArea from "../homes/home/fact-area";
-import FeatureArea from "../homes/home/feature-area";
+import GalleryArea from "./gallery-area";
 
-const Faq = () => {
+const Gallery = () => {
   return (
     <>
       {/* <HeaderOne /> */}
-      <Breadcrumb title="faq" innertitle="Faq Page" />
-      <FaqArea />
+
+      <Breadcrumb title="Gallery" innertitle="Gallery" />
+      <GalleryArea />
       <Footer />
+      {/* <Footer /> */}
     </>
   );
 };
 
-export default Faq;
+export default Gallery;

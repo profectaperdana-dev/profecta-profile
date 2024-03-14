@@ -36,9 +36,10 @@ const menu_data = [
     title: "Other",
     link: "#",
     sub_menus: [
+      { link: "/faq", title: "FAQ" },
       { link: "/portfolio", title: "Portfolio" },
       { link: "/clients", title: "Clients/References" },
-      { link: "/galerry", title: "Galerry" },
+      { link: "/gallery", title: "Gallery" },
       { link: "/blog", title: "Blog" },
     ],
   },
@@ -61,6 +62,5 @@ const menu_data = [
     title: "Contact",
     link: "/contact",
   },
-
 ];
 export default menu_data;
