@@ -7,7 +7,7 @@ const index = () => {
   return (
     <Wrapper>
       <SEO pageTitle={"Sectox - CCTV & Security"} />
-      <HomeThree />
+      {/* <HomeThree /> */}
     </Wrapper>
   );
 };

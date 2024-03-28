@@ -17,7 +17,7 @@ import Footer from "@/src/layout/footers/footer";
 const HomeThree = () => {
   return (
     <>
-      <HeaderThree />
+      {/* <HeaderThree />
       <SliderArea />
       <AboutArea />
       <ServiceArea />
@@ -30,7 +30,7 @@ const HomeThree = () => {
       <VideoArea />
       <BlogArea />
       <TopFooter />
-      <Footer />
+      <Footer /> */}
     </>
   );
 };
