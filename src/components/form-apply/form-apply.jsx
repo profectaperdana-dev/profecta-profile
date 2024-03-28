@@ -8,7 +8,7 @@ import axios from "axios";
 
 // ** FORM VALIDATION
 
-const CheckoutArea = () => {
+const FormApply = () => {
   const router = useRouter();
   const [errors, setErrors] = useState([]);
   const [position, setPosition] = useState("");
@@ -473,4 +473,4 @@ const CheckoutArea = () => {
   );
 };
 
-export default CheckoutArea;
+export default FormApply;
