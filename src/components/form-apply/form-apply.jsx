@@ -51,21 +51,6 @@ const CheckoutArea = () => {
       });
   // ** CHANGE HANDLER
   const changeHandler = (e) => {
-    if (e.target.name == "nik") {
-      let current_elements = document.querySelectorAll(".after-nik");
-
-      if (e.target.value.length < 16 || e.target.value.length > 16) {
-        current_elements.forEach((element) => {
-          element.setAttribute("readonly", "readonly");
-          document.getElementsByClassName("error-nik")[0].hidden = false;
-        });
-      } else {
-        current_elements.forEach((element) => {
-          element.removeAttribute("readonly");
-          document.getElementsByClassName("error-nik")[0].hidden = true;
-        });
-      }
-    }
     setRegisterData({ ...registerData, [e.target.name]: e.target.value });
   };
   const fileHandler = (e) => {
@@ -79,39 +64,6 @@ const CheckoutArea = () => {
       [questionId]: selectedAnswerId,
     }));
   };
-    // ** USE EFFECT
-    useEffect(() => {
-        fetchQuestion();
-    }, [router.query.slug]);
-    const fetchQuestion = async () =>
-        await axios
-            .get(
-                `https://testing.profectaperdana.com/api/job_vacancies/${router.query.slug}/question`
-            )
-            .then(function (response) {
-                const question = response.data.data;
-                setQuestion(question.job_question);
-                setPosition(question);
-                setRegisterData({ ...registerData, position: question.id });
-            })
-            .catch(function (error) {
-                // handle error
-            });
-    // ** CHANGE HANDLER
-    const changeHandler = (e) => {
-        setRegisterData({ ...registerData, [e.target.name]: e.target.value });
-    };
-    const fileHandler = (e) => {
-        const selectedFile = e.target.files[0];
-        setImageData(selectedFile);
-    };
-    const answerHandler = (e, questionId) => {
-        const selectedAnswerId = e.target.value;
-        setAnswer((prevAnswer) => ({
-            ...prevAnswer,
-            [questionId]: selectedAnswerId,
-        }));
-    };
 
   // ** SUBMIT HANDLER
   const submitHandler = async (e) => {
@@ -169,49 +121,13 @@ const CheckoutArea = () => {
         setBtnLoading(false);
       });
   };
-        await axios
-            .post("https://testing.profectaperdana.com/api/job_vacancies", formData, {
-                //header
-                headers: {
-                    //header Bearer + Token
-                    "content-type": "multipart/form-data",
-                },
-            })
-            .then((response) => {
-                Swal.fire({
-                    icon: "success",
-                    title: "Thank you for applying",
-                    text: "We will contact you soon",
-                });
-                router.push("/");
-            })
-            .catch((error) => {
-                if (error.response.status === 421) {
-                    Swal.fire({
-                        icon: "error",
-                        title: "Oops...",
-                        text: "The file must be a PDF",
-                    });
-                } else if (error.response.status === 423) {
-                    Swal.fire({
-                        icon: "error",
-                        title: "Oops...",
-                        text: "May not apply for the same position twice",
-                    });
-                }
-                setErrors(error.response.data);
-            })
-            .finally(() => {
-                setBtnLoading(false);
-            });
-    };
 
   return (
     <>
-      <section className="checkout-area pb-70 pt-100 pb-30">
+      <section className="checkout-area pt-40 pb-55">
         <div className="container">
           <div className="row">
-            <div className="col-xl-12 mb-20">
+            <div className="col-xl-12 col-lg-12 col-12 mb-20">
               <button
                 onClick={() => router.back()}
                 className="btn btn-danger shadow w-10 rounded"
@@ -220,695 +136,341 @@ const CheckoutArea = () => {
                 <i className="fal fa-long-arrow-left"></i> Back{" "}
               </button>
             </div>
-            <div className="row">
-              <div className="col-lg-12">
-                <form
-                  onSubmit={submitHandler}
-                  encType="multipart/form-data"
-                  style={{ backgroundColor: "#f9fff4" }}
-                >
-                  {/* <input type="hidden" name="job_id" defaultValue={ jobId } /> */}
-                  <div className="tpservices rounded shadow mb-40 rounded p-4">
-                    <h3>Applicant Data</h3>
-                    <hr />
-                    <div className="row">
-                      <div className="col-md-12 mb-20">
-                        <label>
-                          Position<span className="required">*</span>
-                        </label>
-                        <input
-                          autoComplete="off"
-                          readOnly
-                          className="form-control fw-bold text-uppercase"
-                          defaultValue={position.position}
-                          type="text"
-                          placeholder=""
-                        />
-                        <input
-                          autoComplete="off"
-                          readOnly
-                          name="position"
-                          id="position"
-                          className="form-control fw-bold text-uppercase"
-                          defaultValue={position.id}
-                          type="hidden"
-                          placeholder=""
-                        />
-                      </div>
-                      <div className="col-md-12 mb-20">
-                        <label>
-                          NIK <span className="required">*</span>{" "}
-                        </label>
-                        <input
-                          autoComplete="off"
-                          value={registerData.nik}
-                          onChange={changeHandler}
-                          name="nik"
-                          className="form-control text-uppercase"
-                          type="text"
-                          placeholder="Nomor Induk Kependudukan "
-                        />
-                        <div className="text text-danger error-nik">
-                          NIK must be 16 characters
-                        </div>
-                      </div>
-                      <div className="col-md-6 mb-20">
-                        <label>
-                          First Name <span className="required">*</span>
-                        </label>
-                        <input
-                          autoComplete="off"
-                          value={registerData.first_name}
-                          onChange={changeHandler}
-                          name="first_name"
-                          className="form-control text-capitalized after-nik"
-                          type="text"
-                          placeholder="Nama Depan"
-                        />
-                        {errors.first_name && (
-                          <div className="text text-danger">
-                            {errors.first_name[0]}
-                          </div>
-                        )}
-                      </div>
-                      <div className="col-md-6 mb-20">
-                        <label>
-                          Last Name <span className="required">*</span>
-                        </label>
-                        <input
-                          autoComplete="off"
-                          value={registerData.last_name}
-                          onChange={changeHandler}
-                          name="last_name"
-                          className="form-control text-capitalized after-nik"
-                          type="text"
-                          placeholder="Nama Belakang"
-                        />
-                        {errors.last_name && (
-                          <div className="text text-danger">
-                            {errors.last_name[0]}
-                          </div>
-                        )}
-                      </div>
-                      <div className="col-md-4 mb-20">
-                        <label>
-                          Gender <span className="required">*</span>
-                        </label>
-                        <select
-                          value={registerData.gender}
-                          onChange={changeHandler}
-                          name="gender"
-                          className="form-select after-nik"
-                        >
-                          <option value={""}>--Choose Gender--</option>
-                          <option value="Male">Male</option>
-                          <option value="Female">Female</option>
-                        </select>
-                        {errors.gender && (
-                          <div className="text text-danger">
-                            {errors.gender[0]}
-                          </div>
-                        )}
-                      </div>
-    return (
-        <>
-            <section className='checkout-area pt-40 pb-55'>
-                <div className='container'>
-                    <div className='row'>
-                        <div className='col-xl-12 col-lg-12 col-12 mb-20'>
-                            <button
-                                onClick={ () => router.back() }
-                                className='btn btn-danger shadow w-10 rounded'
-                                href='#'>
-                                <i className='fal fa-long-arrow-left'></i> Back{ " " }
-                            </button>
-                        </div>
-                    </div>
-                    <div className='row'>
-                        <div className='col-12'>
-                            <form
-                                onSubmit={ submitHandler }
-                                encType='multipart/form-data'
-                                style={ { backgroundColor: "#f9fff4" } }>
-                                <div className='tpservices rounded shadow mb-40 rounded p-4'>
-                                    <h3>Applicant Data</h3>
-                                    <hr />
-                                    <div className='row'>
-                                        <div className='col-md-12 mb-20'>
-                                            <label>
-                                                Position<span className='required'>*</span>
-                                            </label>
-                                            <input
-                                                autoComplete='off'
-                                                readOnly
-                                                className='form-control fw-bold text-uppercase'
-                                                defaultValue={ position.position }
-                                                type='text'
-                                                placeholder=''
-                                            />
-                                            <input
-                                                autoComplete='off'
-                                                readOnly
-                                                name='position'
-                                                id='position'
-                                                className='form-control fw-bold text-uppercase'
-                                                defaultValue={ position.id }
-                                                type='hidden'
-                                                placeholder=''
-                                            />
-                                        </div>
-                                        <div className='col-md-12 mb-20'>
-                                            <label>
-                                                NIK <span className='required'>*</span>{ " " }
-                                            </label>
-                                            <input
-                                                autoComplete='off'
-                                                value={ registerData.nik }
-                                                onChange={ changeHandler }
-                                                name='nik'
-                                                className='form-control text-uppercase'
-                                                type='text'
-                                                placeholder='Nomor Induk Kependudukan '
-                                            />
-                                            { errors.nik && (
-                                                <div className='text text-danger'>
-                                                    { errors.nik[0] }
-                                                </div>
-                                            ) }
-                                        </div>
-                                        <div className='col-md-6 mb-20'>
-                                            <label>
-                                                First Name <span className='required'>*</span>
-                                            </label>
-                                            <input
-                                                autoComplete='off'
-                                                value={ registerData.first_name }
-                                                onChange={ changeHandler }
-                                                name='first_name'
-                                                className='form-control text-capitalized'
-                                                type='text'
-                                                placeholder='Nama Depan'
-                                            />
-                                            { errors.first_name && (
-                                                <div className='text text-danger'>
-                                                    { errors.first_name[0] }
-                                                </div>
-                                            ) }
-                                        </div>
-                                        <div className='col-md-6 mb-20'>
-                                            <label>
-                                                Last Name <span className='required'>*</span>
-                                            </label>
-                                            <input
-                                                autoComplete='off'
-                                                value={ registerData.last_name }
-                                                onChange={ changeHandler }
-                                                name='last_name'
-                                                className='form-control text-capitalized'
-                                                type='text'
-                                                placeholder='Nama Belakang'
-                                            />
-                                            { errors.last_name && (
-                                                <div className='text text-danger'>
-                                                    { errors.last_name[0] }
-                                                </div>
-                                            ) }
-                                        </div>
-                                        <div className='col-md-4 mb-20'>
-                                            <label>
-                                                Gender <span className='required'>*</span>
-                                            </label>
-                                            <select
-                                                value={ registerData.gender }
-                                                onChange={ changeHandler }
-                                                name='gender'
-                                                className='form-select'>
-                                                <option value={ "" }>--Choose Gender--</option>
-                                                <option value='Male'>Male</option>
-                                                <option value='Female'>Female</option>
-                                            </select>
-                                            { errors.gender && (
-                                                <div className='text text-danger'>
-                                                    { errors.gender[0] }
-                                                </div>
-                                            ) }
-                                        </div>
-
-                      <div className="col-md-4 mb-20">
-                        <label>
-                          {" "}
-                          Date of Birth <span className="required">*</span>
-                        </label>
-                        <input
-                          autoComplete="off"
-                          value={registerData.date_of_birth}
-                          onChange={changeHandler}
-                          name="date_of_birth"
-                          className="form-control text-uppercase after-nik"
-                          type="date"
-                          placeholder=""
-                        />
-                        {errors.date_of_birth && (
-                          <div className="text text-danger">
-                            {errors.date_of_birth[0]}
-                          </div>
-                        )}
-                      </div>
-                      <div className="col-md-4 mb-20">
-                        <label>
-                          Place of Birth
-                          <span className="required">*</span>
-                        </label>
-                        <input
-                          autoComplete="off"
-                          value={registerData.place_of_birth}
-                          onChange={changeHandler}
-                          name="place_of_birth"
-                          className="form-control text-capitalized after-nik"
-                          type="text"
-                          placeholder="Tempat Lahir"
-                        />
-                        {errors.place_of_birth && (
-                          <div className="text text-danger">
-                            {errors.place_of_birth[0]}
-                          </div>
-                        )}
-                      </div>
-                                        <div className='col-md-4 mb-20'>
-                                            <label>
-                                                { " " }
-                                                Date of Birth <span className='required'>*</span>
-                                            </label>
-                                            <input
-                                                autoComplete='off'
-                                                value={ registerData.date_of_birth }
-                                                onChange={ changeHandler }
-                                                name='date_of_birth'
-                                                className='form-control text-uppercase'
-                                                type='date'
-                                                placeholder=''
-                                            />
-                                            { errors.date_of_birth && (
-                                                <div className='text text-danger'>
-                                                    { errors.date_of_birth[0] }
-                                                </div>
-                                            ) }
-                                        </div>
-                                        <div className='col-md-4 mb-20'>
-                                            <label>
-                                                Place of Birth
-                                                <span className='required'>*</span>
-                                            </label>
-                                            <input
-                                                autoComplete='off'
-                                                value={ registerData.place_of_birth }
-                                                onChange={ changeHandler }
-                                                name='place_of_birth'
-                                                className='form-control text-capitalized'
-                                                type='text'
-                                                placeholder='Tempat Lahir'
-                                            />
-                                            { errors.place_of_birth && (
-                                                <div className='text text-danger'>
-                                                    { errors.place_of_birth[0] }
-                                                </div>
-                                            ) }
-                                        </div>
-
-                      <div className="col-md-12 mb-20">
-                        <label>
-                          Address <span className="required">*</span>
-                        </label>
-                        <input
-                          autoComplete="off"
-                          value={registerData.address}
-                          onChange={changeHandler}
-                          name="address"
-                          className="form-control text-capitalized after-nik"
-                          type="text"
-                          placeholder="Alamat"
-                        />
-                        {errors.address && (
-                          <div className="text text-danger">
-                            {errors.address[0]}
-                          </div>
-                        )}
-                      </div>
-                      <div className="col-md-6 mb-20">
-                        <label>
-                          Phone Number <span className="required">*</span>
-                        </label>
-                        <input
-                          autoComplete="off"
-                          value={registerData.phone_number}
-                          onChange={changeHandler}
-                          name="phone_number"
-                          className="form-control text-capitalized after-nik"
-                          type="text"
-                          placeholder="Nomor Telepon"
-                        />
-                        {errors.phone_number && (
-                          <div className="text text-danger">
-                            {errors.phone_number[0]}
-                          </div>
-                        )}
-                      </div>
-                      <div className="col-md-6 mb-20">
-                        <label>
-                          Email <span className="required">*</span>
-                        </label>
-                        <input
-                          autoComplete="off"
-                          value={registerData.email}
-                          onChange={changeHandler}
-                          name="email"
-                          className="form-control text-capitalized after-nik"
-                          type="mail"
-                          placeholder="Alamat Surel"
-                        />
-                        {errors.email && (
-                          <div className="text text-danger">
-                            {errors.email[0]}
-                          </div>
-                        )}
-                      </div>
-                      <div className="col-md-6 mb-20">
-                        <label>
-                          Campus{" "}
-                          <span className="required">* (last education)</span>
-                        </label>
-                        <input
-                          autoComplete="off"
-                          value={registerData.campus}
-                          onChange={changeHandler}
-                          name="campus"
-                          className="form-control text-capitalized after-nik"
-                          type="text"
-                          placeholder="Sekolah/Universitas"
-                        />
-                        {errors.campus && (
-                          <div className="text text-danger">
-                            {errors.campus[0]}
-                          </div>
-                        )}
-                      </div>
-                      <div className="col-md-6 mb-20">
-                        <label>
-                          Major{" "}
-                          <span className="required">* (last education)</span>
-                        </label>
-                        <select
-                          value={registerData.major}
-                          onChange={changeHandler}
-                          name="major"
-                          className="form-select after-nik"
-                        >
-                          <option value={""}>--Choose Major--</option>
-                          <option value="SLTA/SMK/MA/D-1">
-                            SLTA/SMK/MA/D-1
-                          </option>
-                          <option value="D-II">D-II</option>
-                          <option value="D-III">D-III</option>
-                          <option value="S-1/D-IV/PROFESI">
-                            S-1/D-IV/PROFESI
-                          </option>
-                          <option value="S-2/SPESIALIS">S-2/SPESIALIS</option>
-                          <option value="S-3">S-3</option>
-                          <option value="TENAGA KESEHATAN">
-                            TENAGA KESEHATAN
-                          </option>
-                        </select>
-                                        <div className='col-md-12 mb-20'>
-                                            <label>
-                                                Address <span className='required'>*</span>
-                                            </label>
-                                            <input
-                                                autoComplete='off'
-                                                value={ registerData.address }
-                                                onChange={ changeHandler }
-                                                name='address'
-                                                className='form-control text-capitalized'
-                                                type='text'
-                                                placeholder='Alamat'
-                                            />
-                                            { errors.address && (
-                                                <div className='text text-danger'>
-                                                    { errors.address[0] }
-                                                </div>
-                                            ) }
-                                        </div>
-                                        <div className='col-md-6 mb-20'>
-                                            <label>
-                                                Phone Number <span className='required'>*</span>
-                                            </label>
-                                            <input
-                                                autoComplete='off'
-                                                value={ registerData.phone_number }
-                                                onChange={ changeHandler }
-                                                name='phone_number'
-                                                className='form-control text-capitalized'
-                                                type='text'
-                                                placeholder='Nomor Telepon'
-                                            />
-                                            { errors.phone_number && (
-                                                <div className='text text-danger'>
-                                                    { errors.phone_number[0] }
-                                                </div>
-                                            ) }
-                                        </div>
-                                        <div className='col-md-6 mb-20'>
-                                            <label>
-                                                Email <span className='required'>*</span>
-                                            </label>
-                                            <input
-                                                autoComplete='off'
-                                                value={ registerData.email }
-                                                onChange={ changeHandler }
-                                                name='email'
-                                                className='form-control text-capitalized'
-                                                type='mail'
-                                                placeholder='Alamat Surel'
-                                            />
-                                            { errors.email && (
-                                                <div className='text text-danger'>
-                                                    { errors.email[0] }
-                                                </div>
-                                            ) }
-                                        </div>
-                                        <div className='col-md-6 mb-20'>
-                                            <label>
-                                                Campus{ " " }
-                                                <span className='required'>* (last education)</span>
-                                            </label>
-                                            <input
-                                                autoComplete='off'
-                                                value={ registerData.campus }
-                                                onChange={ changeHandler }
-                                                name='campus'
-                                                className='form-control text-capitalized'
-                                                type='text'
-                                                placeholder='Sekolah/Universitas'
-                                            />
-                                            { errors.campus && (
-                                                <div className='text text-danger'>
-                                                    { errors.campus[0] }
-                                                </div>
-                                            ) }
-                                        </div>
-                                        <div className='col-md-6 mb-20'>
-                                            <label>
-                                                Major{ " " }
-                                                <span className='required'>* (last education)</span>
-                                            </label>
-                                            <select
-                                                value={ registerData.major }
-                                                onChange={ changeHandler }
-                                                name='major'
-                                                className='form-select'>
-                                                <option value={ "" }>--Choose Major--</option>
-                                                <option value='SLTA/SMK/MA/D-1'>
-                                                    SLTA/SMK/MA/D-1
-                                                </option>
-                                                <option value='D-II'>D-II</option>
-                                                <option value='D-III'>D-III</option>
-                                                <option value='S-1/D-IV/PROFESI'>
-                                                    S-1/D-IV/PROFESI
-                                                </option>
-                                                <option value='S-2/SPESIALIS'>S-2/SPESIALIS</option>
-                                                <option value='S-3'>S-3</option>
-                                                <option value='TENAGA KESEHATAN'>
-                                                    TENAGA KESEHATAN
-                                                </option>
-                                            </select>
-
-                        {errors.major && (
-                          <div className="text text-danger">
-                            {errors.major[0]}
-                          </div>
-                        )}
-                      </div>
-                                            { errors.major && (
-                                                <div className='text text-danger'>
-                                                    { errors.major[0] }
-                                                </div>
-                                            ) }
-                                        </div>
-
-                      <div className="col-md-12 mb-30">
-                        <label>
-                          Applications & CV{" "}
-                          <span className="required">* (PDF)</span>
-                        </label>
-                        <input
-                          autoComplete="off"
-                          value={registerData.file}
-                          accept="application/pdf"
-                          onChange={fileHandler}
-                          name="file"
-                          className="form-control after-nik"
-                          type="file"
-                          placeholder=""
-                        />
-                        {errors && (
-                          <div className="text text-danger">{errors[0]}</div>
-                        )}
-                      </div>
+          </div>
+          <div className="row">
+            <div className="col-12">
+              <form
+                onSubmit={submitHandler}
+                encType="multipart/form-data"
+                style={{ backgroundColor: "#f9fff4" }}
+              >
+                <div className="tpservices rounded shadow mb-40 rounded p-4">
+                  <h3>Applicant Data</h3>
+                  <hr />
+                  <div className="row">
+                    <div className="col-md-12 mb-20">
+                      <label>
+                        Position<span className="required">*</span>
+                      </label>
+                      <input
+                        autoComplete="off"
+                        readOnly
+                        className="form-control fw-bold text-uppercase"
+                        defaultValue={position.position}
+                        type="text"
+                        placeholder=""
+                      />
+                      <input
+                        autoComplete="off"
+                        readOnly
+                        name="position"
+                        id="position"
+                        className="form-control fw-bold text-uppercase"
+                        defaultValue={position.id}
+                        type="hidden"
+                        placeholder=""
+                      />
                     </div>
                     <div className="col-md-12 mb-20">
-                      <h6>Question: </h6>
-                      <div className="row">
-                        <div className="col-lg-12">
-                          <div className="tp-overview-feature">
-                            <ul>
-                              {question.map((item, i) => (
-                                <li key={i}>
-                                  {i + 1 + ". "}
-                                  {item.question}
-                                  <input
-                                    type="hidden"
-                                    defaultValue={item.id}
-                                    name={`job_question[${i}][question]`}
-                                  />
-                                  <ul>
-                                    {item.quest_answer.map((answerItem, j) => (
-                                      <li key={j}>
-                                        <label>
-                                          <input
-                                            onChange={(e) =>
-                                              answerHandler(e, item.id)
-                                            }
-                                            type="radio"
-                                            name={`job_question[${i}][answer]`}
-                                            value={answerItem.id}
-                                          />
-                                          {" " + answerItem.answer}{" "}
-                                          {/* { answerItem.id } */}
-                                        </label>
-                                        <br />{" "}
-                                        {/* Menambahkan baris baru setelah setiap opsi jawaban */}
-                                      </li>
-                                    ))}
-                                  </ul>
-                                </li>
-                              ))}
-                            </ul>
-                          </div>
+                      <label>
+                        NIK <span className="required">*</span>{" "}
+                      </label>
+                      <input
+                        autoComplete="off"
+                        value={registerData.nik}
+                        onChange={changeHandler}
+                        name="nik"
+                        className="form-control text-uppercase"
+                        type="text"
+                        placeholder="Nomor Induk Kependudukan "
+                      />
+                      {errors.nik && (
+                        <div className="text text-danger">{errors.nik[0]}</div>
+                      )}
+                    </div>
+                    <div className="col-md-6 mb-20">
+                      <label>
+                        First Name <span className="required">*</span>
+                      </label>
+                      <input
+                        autoComplete="off"
+                        value={registerData.first_name}
+                        onChange={changeHandler}
+                        name="first_name"
+                        className="form-control text-capitalized"
+                        type="text"
+                        placeholder="Nama Depan"
+                      />
+                      {errors.first_name && (
+                        <div className="text text-danger">
+                          {errors.first_name[0]}
                         </div>
-                      </div>
+                      )}
+                    </div>
+                    <div className="col-md-6 mb-20">
+                      <label>
+                        Last Name <span className="required">*</span>
+                      </label>
+                      <input
+                        autoComplete="off"
+                        value={registerData.last_name}
+                        onChange={changeHandler}
+                        name="last_name"
+                        className="form-control text-capitalized"
+                        type="text"
+                        placeholder="Nama Belakang"
+                      />
+                      {errors.last_name && (
+                        <div className="text text-danger">
+                          {errors.last_name[0]}
+                        </div>
+                      )}
+                    </div>
+                    <div className="col-md-4 mb-20">
+                      <label>
+                        Gender <span className="required">*</span>
+                      </label>
+                      <select
+                        value={registerData.gender}
+                        onChange={changeHandler}
+                        name="gender"
+                        className="form-select"
+                      >
+                        <option value={""}>--Choose Gender--</option>
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                      </select>
+                      {errors.gender && (
+                        <div className="text text-danger">
+                          {errors.gender[0]}
+                        </div>
+                      )}
+                    </div>
+
+                    <div className="col-md-4 mb-20">
+                      <label>
+                        {" "}
+                        Date of Birth <span className="required">*</span>
+                      </label>
+                      <input
+                        autoComplete="off"
+                        value={registerData.date_of_birth}
+                        onChange={changeHandler}
+                        name="date_of_birth"
+                        className="form-control text-uppercase"
+                        type="date"
+                        placeholder=""
+                      />
+                      {errors.date_of_birth && (
+                        <div className="text text-danger">
+                          {errors.date_of_birth[0]}
+                        </div>
+                      )}
+                    </div>
+                    <div className="col-md-4 mb-20">
+                      <label>
+                        Place of Birth
+                        <span className="required">*</span>
+                      </label>
+                      <input
+                        autoComplete="off"
+                        value={registerData.place_of_birth}
+                        onChange={changeHandler}
+                        name="place_of_birth"
+                        className="form-control text-capitalized"
+                        type="text"
+                        placeholder="Tempat Lahir"
+                      />
+                      {errors.place_of_birth && (
+                        <div className="text text-danger">
+                          {errors.place_of_birth[0]}
+                        </div>
+                      )}
+                    </div>
+
+                    <div className="col-md-12 mb-20">
+                      <label>
+                        Address <span className="required">*</span>
+                      </label>
+                      <input
+                        autoComplete="off"
+                        value={registerData.address}
+                        onChange={changeHandler}
+                        name="address"
+                        className="form-control text-capitalized"
+                        type="text"
+                        placeholder="Alamat"
+                      />
+                      {errors.address && (
+                        <div className="text text-danger">
+                          {errors.address[0]}
+                        </div>
+                      )}
+                    </div>
+                    <div className="col-md-6 mb-20">
+                      <label>
+                        Phone Number <span className="required">*</span>
+                      </label>
+                      <input
+                        autoComplete="off"
+                        value={registerData.phone_number}
+                        onChange={changeHandler}
+                        name="phone_number"
+                        className="form-control text-capitalized"
+                        type="text"
+                        placeholder="Nomor Telepon"
+                      />
+                      {errors.phone_number && (
+                        <div className="text text-danger">
+                          {errors.phone_number[0]}
+                        </div>
+                      )}
+                    </div>
+                    <div className="col-md-6 mb-20">
+                      <label>
+                        Email <span className="required">*</span>
+                      </label>
+                      <input
+                        autoComplete="off"
+                        value={registerData.email}
+                        onChange={changeHandler}
+                        name="email"
+                        className="form-control text-capitalized"
+                        type="mail"
+                        placeholder="Alamat Surel"
+                      />
+                      {errors.email && (
+                        <div className="text text-danger">
+                          {errors.email[0]}
+                        </div>
+                      )}
+                    </div>
+                    <div className="col-md-6 mb-20">
+                      <label>
+                        Campus{" "}
+                        <span className="required">* (last education)</span>
+                      </label>
+                      <input
+                        autoComplete="off"
+                        value={registerData.campus}
+                        onChange={changeHandler}
+                        name="campus"
+                        className="form-control text-capitalized"
+                        type="text"
+                        placeholder="Sekolah/Universitas"
+                      />
+                      {errors.campus && (
+                        <div className="text text-danger">
+                          {errors.campus[0]}
+                        </div>
+                      )}
+                    </div>
+                    <div className="col-md-6 mb-20">
+                      <label>
+                        Major{" "}
+                        <span className="required">* (last education)</span>
+                      </label>
+                      <select
+                        value={registerData.major}
+                        onChange={changeHandler}
+                        name="major"
+                        className="form-select"
+                      >
+                        <option value={""}>--Choose Major--</option>
+                        <option value="SLTA/SMK/MA/D-1">SLTA/SMK/MA/D-1</option>
+                        <option value="D-II">D-II</option>
+                        <option value="D-III">D-III</option>
+                        <option value="S-1/D-IV/PROFESI">
+                          S-1/D-IV/PROFESI
+                        </option>
+                        <option value="S-2/SPESIALIS">S-2/SPESIALIS</option>
+                        <option value="S-3">S-3</option>
+                        <option value="TENAGA KESEHATAN">
+                          TENAGA KESEHATAN
+                        </option>
+                      </select>
+
+                      {errors.major && (
+                        <div className="text text-danger">
+                          {errors.major[0]}
+                        </div>
+                      )}
+                    </div>
+
+                    <div className="col-md-12 mb-30">
+                      <label>
+                        Applications & CV{" "}
+                        <span className="required">* (PDF)</span>
+                      </label>
+                      <input
+                        autoComplete="off"
+                        value={registerData.file}
+                        accept="application/pdf"
+                        onChange={fileHandler}
+                        name="file"
+                        className="form-control"
+                        type="file"
+                        placeholder=""
+                      />
+                      {errors && (
+                        <div className="text text-danger">{errors[0]}</div>
+                      )}
                     </div>
                   </div>
-                  <div className="tpservices__btn shadow">
-                    <button
-                      id="btn-register"
-                      type="submit"
-                      disabled={btnLoading}
-                      className="tp-btn w-100 rounded"
-                    >
-                      {!btnLoading ? "Submit " : <>Loading...</>}{" "}
-                    </button>
+                  <div className="col-md-12 mb-20">
+                    <ul>
+                      {question.map((item, i) => (
+                        <li className="mb-3" key={i}>
+                          <h5>
+                            {" "}
+                            {i + 1 + ". "}
+                            {item.question}
+                          </h5>
+                          <input
+                            type="hidden"
+                            defaultValue={item.id}
+                            name={`job_question[${i}][question]`}
+                          />
+                          <ul>
+                            {item.quest_answer.map((answerItem, j) => (
+                              <li key={j}>
+                                <label>
+                                  <input
+                                    onChange={(e) => answerHandler(e, item.id)}
+                                    type="radio"
+                                    name={`job_question[${i}][answer]`}
+                                    value={answerItem.id}
+                                  />
+                                  {" " + answerItem.answer}{" "}
+                                  {/* { answerItem.id } */}
+                                </label>
+                                <br />{" "}
+                                {/* Menambahkan baris baru setelah setiap opsi jawaban */}
+                              </li>
+                            ))}
+                          </ul>
+                        </li>
+                      ))}
+                    </ul>
                   </div>
-                </form>
-              </div>
+                </div>
+                <div className="tpservices__btn shadow">
+                  <button
+                    id="btn-register"
+                    type="submit"
+                    disabled={btnLoading}
+                    className="tp-btn w-100 rounded"
+                  >
+                    {!btnLoading ? "Submit " : <>Loading...</>}{" "}
+                  </button>
+                </div>
+              </form>
             </div>
           </div>
         </div>
       </section>
     </>
   );
-                                        <div className='col-md-12 mb-30'>
-                                            <label>
-                                                Applications & CV{ " " }
-                                                <span className='required'>* (PDF)</span>
-                                            </label>
-                                            <input
-                                                autoComplete='off'
-                                                value={ registerData.file }
-                                                accept='application/pdf'
-                                                onChange={ fileHandler }
-                                                name='file'
-                                                className='form-control'
-                                                type='file'
-                                                placeholder=''
-                                            />
-                                            { errors && (
-                                                <div className='text text-danger'>{ errors[0] }</div>
-                                            ) }
-                                        </div>
-                                    </div>
-                                    <div className='col-md-12 mb-20'>
-                                        <ul>
-                                            { question.map((item, i) => (
-                                                <li className="mb-3" key={ i }>
-
-                                                    <h5> { i + 1 + ". " }{ item.question }</h5>
-                                                    <input
-                                                        type='hidden'
-                                                        defaultValue={ item.id }
-                                                        name={ `job_question[${i}][question]` }
-                                                    />
-                                                    <ul>
-                                                        { item.quest_answer.map(
-                                                            (answerItem, j) => (
-                                                                <li key={ j }>
-                                                                    <label>
-                                                                        <input
-                                                                            onChange={ (e) =>
-                                                                                answerHandler(e, item.id)
-                                                                            }
-                                                                            type='radio'
-                                                                            name={ `job_question[${i}][answer]` }
-                                                                            value={ answerItem.id }
-                                                                        />
-                                                                        { " " + answerItem.answer }{ " " }
-                                                                        {/* { answerItem.id } */ }
-                                                                    </label>
-                                                                    <br />{ " " }
-                                                                    {/* Menambahkan baris baru setelah setiap opsi jawaban */ }
-                                                                </li>
-                                                            )
-                                                        ) }
-                                                    </ul>
-                                                </li>
-                                            )) }
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div className='tpservices__btn shadow'>
-                                    <button
-                                        id='btn-register'
-                                        type='submit'
-                                        disabled={ btnLoading }
-                                        className='tp-btn w-100 rounded'>
-                                        { !btnLoading ? "Submit " : <>Loading...</> }{ " " }
-                                    </button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </section>
-        </>
-    );
 };
 
 export default CheckoutArea;

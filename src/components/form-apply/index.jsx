@@ -8,10 +8,10 @@ import Footer from "@/src/layout/footers/footer";
 const Checkout = () => {
   return (
     <>
-      {/* <HeaderOne /> */ }
+      {/* <HeaderOne /> */}
       <Breadcrumb title="Form-Apply" innertitle="Form-Apply" />
       <FormApply />
-      {/* <Footer /> */ }
+      {/* <Footer /> */}
     </>
   );
 };
