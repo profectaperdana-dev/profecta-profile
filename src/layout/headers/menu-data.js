@@ -22,8 +22,8 @@ const menu_data = [
     id: 3,
     mega_menu: false,
     has_dropdown: false,
-    title: "Service",
-    link: "/service",
+    title: "Product",
+    link: "/product",
     // sub_menus: [
     //   { link: "/flaticon", title: "Flaticon" },
     //   { link: "/service-details", title: "Service Details" },
@@ -38,7 +38,7 @@ const menu_data = [
     sub_menus: [
       { link: "/faq", title: "FAQ" },
       { link: "/portfolio", title: "Portfolio" },
-      { link: "/clients", title: "Clients/References" },
+      { link: "/team", title: "Team" },
       { link: "/gallery", title: "Gallery" },
       { link: "/blog", title: "Blog" },
     ],

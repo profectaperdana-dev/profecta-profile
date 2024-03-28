@@ -14,27 +14,28 @@ import BlogArea from "./blog-area";
 import FooterCounter from "./footer-counter";
 import Footer from "@/src/layout/footers/footer";
 import OnDevelopment from "@/src/pages/on-development";
+import { HomeProvider } from "./home-context";
 
 const HomeTwo = () => {
   return (
-    <>
+    <HomeProvider>
       {/* <HeaderTwo /> */}
-      <OnDevelopment />
-
-      {/* <SliderArea /> */}
-      {/*  <AboutArea />
-      <ServiceArea />
-      <SupportArea />
-      <FeatureArea />
+      {/* <OnDevelopment /> */}
+      <SliderArea />
+      <AboutArea />
+      {/* <ServiceArea /> */}
+      {/* <SupportArea /> */}
+      {/* <FeatureArea /> */}
       <PortfolioArea />
       <TeamArea />
-      <FeaturesLevel />
-      <BrandArea />
+      {/* <FeaturesLevel /> */}
+      {/* <BrandArea /> */}
+      <FooterCounter />
       <CtaArea />
       <BlogArea />
-      <FooterCounter />
-      <Footer style_2={true} /> */}
-    </>
+
+      <Footer style_2={true} />
+    </HomeProvider>
   );
 };
 

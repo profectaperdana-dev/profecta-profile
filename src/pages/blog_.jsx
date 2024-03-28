@@ -6,7 +6,7 @@ import Blog from "../components/blog";
 const index = () => {
   return (
     <Wrapper>
-      <SEO pageTitle={"Sectox - CCTV & Security"} />
+      <SEO pageTitle={"Blog & News - Profecta Perdana"} />
       <Blog />
     </Wrapper>
   );

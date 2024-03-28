@@ -2,28 +2,40 @@
 
 import ContactForm from "@/src/forms/contact-form";
 import React, { useEffect, useRef, useState } from "react";
+import url from "@/utils/globals";
 
-const ContactArea = () => {
-  //
-
+const ContactArea = ({
+  areaData,
+  contactData,
+  filterContactHandler,
+  activatedArea,
+}) => {
   return (
     <>
       <div className="contact-page pt-115 pb-115">
         <div className="container">
+          <div className="tp-port-button masonary-menu mb-4">
+            {areaData
+              ? areaData.data.map((item, i) => (
+                  <button
+                    onClick={() => filterContactHandler(item.id)}
+                    key={i}
+                    className={activatedArea == item.id ? "active" : ""}
+                  >
+                    {item.name}
+                  </button>
+                ))
+              : ""}
+          </div>
           <div className="contact-bg grey-bg">
             <div className="row">
               <div className="col-xxl-6 col-xl-7 col-lg-6">
-                <div className="contact-map">
-                  <iframe
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3984.5426893359654!2d104.78279917449515!3d-2.946769339694559!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e3b76efdfa7494d%3A0x2e385bf9550ae573!2sProfecta%20Perdana!5e0!3m2!1sen!2sid!4v1709716895534!5m2!1sen!2sid"
-                    width="600"
-                    height="450"
-                    style={{ border: "0" }}
-                    allowfullscreen=""
-                    loading="lazy"
-                    referrerpolicy="no-referrer-when-downgrade"
-                  ></iframe>
-                </div>
+                <div
+                  className="contact-map"
+                  dangerouslySetInnerHTML={{
+                    __html: contactData?.data?.embedded_maps,
+                  }}
+                />
               </div>
               <div className="col-xxl-6 col-xl-5 col-lg-6">
                 <div className="contact-us">

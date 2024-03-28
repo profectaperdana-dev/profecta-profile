@@ -8,11 +8,11 @@ import SkillArea from "./skill-area";
 const Team = () => {
   return (
     <>
-      <HeaderOne />
+      {/* <HeaderOne /> */}
       <main>
         <Breadcrumb title=" Team" innertitle=" Team Page" />
         <TeamArea />
-        <SkillArea />
+        {/* <SkillArea /> */}
       </main>
       <Footer />
     </>

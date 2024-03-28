@@ -129,7 +129,6 @@ const GalleryArea = () => {
                             // maxHeight: "18.5rem",
                             // minHeight: "20rem",
                             display: "flex",
-                            display: "flex",
                             alignItems: "center",
                             justifyContent: "center",
                             overflow: "hidden",

@@ -10,13 +10,13 @@ import OnDevelopment from "@/src/components/on-development";
 const Service = () => {
   return (
     <>
-      {/* <HeaderOne /> */ }
-      <Breadcrumb title="Service" innertitle="Our Services" />
-      <OnDevelopment />
-      {/* <ServiceArea /> */ }
-      {/* <FeatureArea /> .*/ }
-      {/* <PricingArea /> */ }
-      {/* <Footer /> */ }
+      {/* <HeaderOne /> */}
+      <Breadcrumb title="Product" innertitle="Our Products" />
+      {/* <OnDevelopment /> */}
+      <ServiceArea />
+      {/* <FeatureArea /> .*/}
+      {/* <PricingArea /> */}
+      <Footer />
     </>
   );
 };

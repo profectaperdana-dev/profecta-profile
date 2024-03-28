@@ -7,9 +7,9 @@ import Footer from "@/src/layout/footers/footer";
 const BlogDetails = () => {
   return (
     <>
-      <HeaderOne />
+      {/* <HeaderOne /> */}
       <main>
-        <Breadcrumb title="Blog Details" innertitle="News Details" />
+        <Breadcrumb title="Blog Details" innertitle="Blog & News Details" />
         <PostboxArea />
       </main>
       <Footer />

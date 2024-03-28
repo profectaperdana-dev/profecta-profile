@@ -1,23 +1,29 @@
 import Link from "next/link";
-import React, { useRef, useState, useEffect } from 'react';
-import axios from 'axios';
+import React, { useRef, useState, useEffect } from "react";
+import axios from "axios";
+import url from "@/utils/globals";
 
 const Category = () => {
-  const [dataCategory, setDataCategory] = useState([]);
-  const fetchData = async () => {
-    await axios.get(`https://testing.profectaperdana.com/api/blog/categories`)
-      .then(function (response) {
-        // handle success
-        setDataCategory(response.data.data);
+  const [dataCategory, setDataCategory] = useState(null);
 
-      })
-      .catch(function (error) {
-        // handle error
-      })
+  const getcategories = async () => {
+    const response = await fetch(
+      `${url.PROFECTA_API_URL}/api/getblog/categories`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
 
-  }
+    const result = await response.json().then((data) => {
+      setDataCategory(data);
+    });
+  };
+
   useEffect(() => {
-    fetchData();
+    getcategories();
   }, []);
   return (
     <>
@@ -25,14 +31,16 @@ const Category = () => {
         <h3 className="sidebar__widget-title">Category</h3>
         <div className="sidebar__widget-content">
           <ul>
-            { dataCategory.map((item, i) => (
-              <li key={ i }>
-                <Link href="/blog">
-                  { item.category.name }
-                  <span>{ item.count }</span>
-                </Link>
-              </li>
-            )) }
+            {dataCategory
+              ? dataCategory.data.map((item, i) => (
+                  <li key={i}>
+                    <Link href={`/blog/filterbycategory/${item.name}`}>
+                      {item.name}
+                      <span>{item.blog_by_count}</span>
+                    </Link>
+                  </li>
+                ))
+              : ""}
           </ul>
         </div>
       </div>
