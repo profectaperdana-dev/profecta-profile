@@ -62,11 +62,16 @@ const BlogArea = () => {
                             </span>
                           </div>
                           <h5 className="tp-blog-title">
-                            <a href="#">{item.title}</a>
+                            <Link href={`/blog-detail/${item.slug}`}>
+                              {item.title}
+                            </Link>
                           </h5>
                           <p>{item.preview.substring(0, 100) + "..."}</p>
                           <div className="tp-feed-link d-flex align-items-center">
-                            <Link className="blog-link" href="/blog-details">
+                            <Link
+                              className="blog-link"
+                              href={`/blog-detail/${item.slug}`}
+                            >
                               Read More{" "}
                               <i className="far fa-long-arrow-alt-right"></i>
                             </Link>

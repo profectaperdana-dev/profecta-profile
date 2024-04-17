@@ -3,18 +3,13 @@ import { NextResponse } from "next/server";
 
 export default async function POST(req, res) {
   try {
-    // const formData = await req.formData();
-    // const username = formData.get("username");
-    // const email = formData.get("email");
-    // const message = formData.get("message");
+    const { username, phone, email, message } = req.body;
 
-    const { username, email, message } = req.body;
-
-    console.info(username);
+    // console.info(username);
 
     // Transporter
     const transporter = nodemailer.createTransport({
-      host: "mail.profectaperdana.com",
+      host: process.env.SMTP_HOST,
       port: 587,
       //   secure: false,
       tls: {
@@ -22,18 +17,19 @@ export default async function POST(req, res) {
         rejectUnauthorized: false,
       },
       auth: {
-        user: "bayu.catur@profectaperdana.com",
-        pass: "Jalatos1999",
+        user: process.env.SENDER_EMAIL,
+        pass: process.env.SENDER_PASSWORD,
       },
     });
 
     // Create Email Message
     const mailOption = {
-      from: "bayu.catur@profectaperdana.com",
-      to: "arizli.romadhon@profectaperdana.com",
-      subject: "Message from Contact",
+      from: process.env.SENDER_EMAIL,
+      to: process.env.RECEIVER_EMAIL,
+      subject: `Visitor Message from ${username}`,
       text: `
-        User name: ${username}
+        Name: ${username}
+        Phone: ${phone}
         Email: ${email}
 
         Message: ${message}
@@ -58,11 +54,9 @@ export default async function POST(req, res) {
     //   },
     //   { status: 500 }
     // );
-    res
-      .status(500)
-      .json({
-        success: false,
-        message: "Sorry! We have internal server error.",
-      });
+    res.status(500).json({
+      success: false,
+      message: "Sorry! We have internal server error.",
+    });
   }
 }

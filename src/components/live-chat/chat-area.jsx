@@ -7,7 +7,7 @@ import {
 } from "react-icons/fa6";
 import Image from "next/image";
 import { useChatContext } from "./chat-context";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const ChatArea = () => {
   const {
@@ -16,23 +16,38 @@ const ChatArea = () => {
     btnChatHandler,
     convertMySQLDateTimeToHourMinute,
     convertMySQLDateTimeToDDMMYYYY,
+    roomId,
+    socketData,
   } = useChatContext();
   const data = {
     id: "1",
-    uniqid: "212",
+    uniqid: roomId,
     name: senderData.name,
     email: senderData.email,
     messages: [
       {
         message: `Hai, ${senderData.name}! Selamat datang di Profecta Live Chat. Ada yang bisa dibantu?`,
         datetime: generateDatetime(),
-        role: "receiver",
+        role: "Receiver",
         isReaded: true,
       },
     ],
   };
 
-  const [chatData, setChatData] = useState(data);
+  const [chatData, setChatData] = useState(null);
+
+  const getchat = async () => {
+    const response = await fetch(`/api/live_chat/get_current_chat/${roomId}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    const result = await response.json().then((data) => {
+      setChatData(data);
+    });
+  };
 
   function generateDatetime() {
     let currentDate = new Date();
@@ -64,8 +79,9 @@ const ChatArea = () => {
       email: senderData.email,
       message: e.target.message.value, // Ambil nilai dari textarea
       datetime: generateDatetime(),
-      role: "sender",
+      role: "Sender",
       isReaded: false,
+      uniqid: roomId,
     };
 
     const sendMessage = async () => {
@@ -86,15 +102,25 @@ const ChatArea = () => {
         throw error;
       }
     };
-    sendMessage().then((data) => {
-      alert(data.message);
-    });
+    sendMessage();
+    socketData.emit("send_msg", newMessage);
+
     setChatData({
       ...chatData,
-      messages: [...chatData.messages, newMessage],
+      data: [...chatData.data, newMessage],
     });
     e.target.message.value = "";
   };
+
+  useEffect(() => {
+    getchat();
+  }, [roomId, getchat]);
+
+  useEffect(() => {
+    socketData.on("receive_msg", (data) => {
+      setChatData((prev) => [...prev, data]);
+    });
+  }, [chatData]);
   return (
     <div
       className="card border-dark shadow"
@@ -104,7 +130,7 @@ const ChatArea = () => {
       <div className="card-header bg-white rounded-pill border-success">
         <div className="row justify-content-between ">
           <div className="col-9 my-auto text-success fw-bold">
-            Profecta Live Chat
+            Profecta Live Chat Room ({roomId})
           </div>
           <a href="#!" className="col-1" onClick={btnChatHandler}>
             <FaCircleMinus className="text-info fs-4" />
@@ -115,56 +141,58 @@ const ChatArea = () => {
         </div>
       </div>
       <div className="card-body overflow-auto">
-        {chatData.messages.map((item, i) => (
-          <div
-            key={i}
-            className={`d-flex ${
-              item.role == "receiver" ? "flex-row-reverse" : "flex-row"
-            } mb-2 `}
-          >
-            <Image
-              src="/favicon.png"
-              width={30}
-              height={30}
-              className={`rounded-circle float-start ${
-                item.role == "receiver" ? "ms-1" : "me-1"
-              } `}
-              alt="logo"
-            />
-            <div
-              className={`${
-                item.role == "receiver"
-                  ? "bg-dark rounded-start"
-                  : "bg-success rounded-end"
-              } bg-opacity-10 p-2 lh-sm`}
-              style={{ maxWidth: "70%", fontSize: "10pt" }}
-            >
-              <div className="">
-                <h6>{item.role == "receiver" ? "Admin" : data.name}</h6>
-              </div>
-              <div>{item.message}</div>
-              <div className="row justify-content-between mt-2">
-                <div className="col-4">
-                  <small className="" style={{ fontSize: "7pt" }}>
-                    {convertMySQLDateTimeToHourMinute(item.datetime)}
-                  </small>
+        {chatData
+          ? chatData.data.map((item, i) => (
+              <div
+                key={i}
+                className={`d-flex ${
+                  item.role != "Receiver" ? "flex-row-reverse" : "flex-row"
+                } mb-2 `}
+              >
+                <Image
+                  src="/favicon.png"
+                  width={30}
+                  height={30}
+                  className={`rounded-circle float-start ${
+                    item.role != "Receiver" ? "ms-1" : "me-1"
+                  } `}
+                  alt="logo"
+                />
+                <div
+                  className={`${
+                    item.role != "Receiver"
+                      ? "bg-dark rounded-start"
+                      : "bg-success rounded-end"
+                  } bg-opacity-10 p-2 lh-sm`}
+                  style={{ minWidth: "70%", maxWidth: "80%", fontSize: "10pt" }}
+                >
+                  <div className="">
+                    <h6>{item.role == "Receiver" ? "Admin" : data.name}</h6>
+                  </div>
+                  <div>{item.message}</div>
+                  <div className="row justify-content-between mt-2">
+                    <div className="col-4">
+                      <small className="" style={{ fontSize: "7pt" }}>
+                        {convertMySQLDateTimeToHourMinute(item.createdAt)}
+                      </small>
+                    </div>
+                    <div className="col-4">
+                      <small className="" style={{ fontSize: "7pt" }}>
+                        {convertMySQLDateTimeToDDMMYYYY(item.createdAt)}
+                      </small>
+                    </div>
+                  </div>
                 </div>
-                <div className="col-4">
-                  <small className="" style={{ fontSize: "7pt" }}>
-                    {convertMySQLDateTimeToDDMMYYYY(item.datetime)}
-                  </small>
-                </div>
+                {item.role != "Receiver" ? (
+                  <div className={`me-1 align-self-end`}>
+                    {item.isReaded ? <FaCheckDouble /> : <FaCheck />}
+                  </div>
+                ) : (
+                  ""
+                )}
               </div>
-            </div>
-            {item.role != "receiver" ? (
-              <div className={`ms-1 align-self-end`}>
-                {item.isReaded ? <FaCheckDouble /> : <FaCheck />}
-              </div>
-            ) : (
-              ""
-            )}
-          </div>
-        ))}
+            ))
+          : ""}
       </div>
       <div className="card-footer bg-transparent border-none">
         <form onSubmit={sendMessageHandler}>

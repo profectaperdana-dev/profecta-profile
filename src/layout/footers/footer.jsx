@@ -36,14 +36,14 @@ const footer_content = {
   pages_title: "Main Pages",
   pages: [
     { title: "About Us", link: "/about" },
-    { title: "Customer", link: "#" },
-    { title: "Service", link: "/service" },
-    { title: "Collections", link: "#" },
-    { title: "Best Seller", link: "#" },
-    { title: "Careers", link: "#" },
-    { title: "Privacy", link: "#" },
-    { title: "Location", link: "#" },
-    { title: "Our Expert", link: "#" },
+    { title: "FAQ", link: "/faq" },
+    { title: "Products", link: "/product" },
+    { title: "Portfolio", link: "/portfolio" },
+    { title: "Team", link: "/team" },
+    { title: "Careers", link: "/career" },
+    { title: "Gallery", link: "/gallery" },
+    { title: "Blog", link: "/blog" },
+    { title: "Contact", link: "/contact" },
   ],
 };
 const {

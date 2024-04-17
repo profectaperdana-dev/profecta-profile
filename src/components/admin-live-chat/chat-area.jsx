@@ -6,20 +6,45 @@ import { useChatContext } from "./chat-context";
 
 const ChatArea = () => {
   const router = useRouter();
-  const [currentChat, setCurrentChat] = useState({});
+  const [currentChat, setCurrentChat] = useState(null);
   const {
     chatData,
     setChatData,
     convertMySQLDateTimeToHourMinute,
     convertMySQLDateTimeToDDMMYYYY,
+    socketData,
+    roomId,
+    read_all_messages,
   } = useChatContext();
 
-  useEffect(() => {
-    const getCurrentChat = chatData.find(
-      (item) => item.uniqid == router.query.uniqid
+  const getcurrentchat = async () => {
+    const response = await fetch(
+      `/api/live_chat/get_current_chat/${router.query.uniqid}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
     );
-    setCurrentChat(getCurrentChat);
-  }, [router]);
+
+    const result = await response.json().then((data) => {
+      setCurrentChat(data);
+    });
+  };
+
+  useEffect(() => {
+    getcurrentchat();
+  }, [router.query.uniqid, getcurrentchat]);
+
+  useEffect(() => {
+    socketData?.on("receive_msg", (data) => {
+      setCurrentChat((prev) => [...prev, data]);
+      console.log(data);
+    });
+  }, [currentChat]);
+
+  // useEffect(() => {}, [socketData]);
 
   function generateTimeOrDate(format) {
     let currentDate = new Date();
@@ -49,25 +74,56 @@ const ChatArea = () => {
     const newMessage = {
       message: e.target.message.value, // Ambil nilai dari textarea
       datetime: generateTimeOrDate(),
-      status: "receiver",
+      role: "Receiver",
       isReaded: true,
+      uniqid: roomId,
     };
+
+    const sendMessage = async () => {
+      try {
+        const response = await fetch("/api/live_chat/send_message", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(newMessage),
+        });
+
+        if (!response.ok) {
+          // console.log(newMessage);
+          throw new Error(`Failed to send message. Status: ${response.status}`);
+        }
+        await socketData.emit("send_msg", newMessage);
+        return response.json();
+      } catch (error) {
+        console.error("Error sending message: ", error.message);
+        throw error;
+      }
+    };
+    sendMessage().then(() => {
+      socketData.emit("send_msg", newMessage);
+    });
 
     setCurrentChat({
       ...currentChat,
-      messages: [...currentChat.messages, newMessage],
+      data: [...currentChat.data, newMessage],
     });
 
-    setChatData((prevChatData) =>
-      prevChatData.map((item) =>
-        item.uniqid == router.query.uniqid
-          ? { ...item, messages: [...item.messages, newMessage] }
-          : item
-      )
-    );
+    // setChatData((prevChatData) =>
+    //   prevChatData.data.map((item) =>
+    //     item.uniqid == router.query.uniqid
+    //       ? {
+    //           ...item,
+    //           live_chat_message: [...item.live_chat_message, newMessage],
+    //         }
+    //       : item
+    //   )
+    // );
 
     // console.log(chatData);
     e.target.message.value = "";
+  };
+
+  const readMessageHandler = () => {
+    read_all_messages(router.query.uniqid);
   };
 
   return (
@@ -76,23 +132,23 @@ const ChatArea = () => {
         className="d-flex align-items-start w-100 flex-column mb-3"
         style={{ height: "100vh" }}
       >
-        {currentChat && Object.keys(currentChat).length > 0 ? (
+        {currentChat ? (
           <>
             <div className="p-2 bg-light w-100 text-dark shadow-sm rounded">
-              {currentChat.name} ({currentChat.email})
+              {currentChat?.room?.name} ({currentChat.room?.email})
             </div>
             <div className="p-2 overflow-auto w-100">
               {" "}
-              {currentChat.messages.map((item, i) => (
+              {currentChat.data.map((item, i) => (
                 <div
                   key={i}
                   className={`d-flex  ${
-                    item.status === "receiver" ? "flex-row" : "flex-row-reverse"
+                    item.role != "Receiver" ? "flex-row" : "flex-row-reverse"
                   } mb-2 `}
                 >
                   <div
                     className={`${
-                      item.status === "receiver"
+                      item.role != "Receiver"
                         ? "bg-dark rounded-end"
                         : "bg-success rounded-start"
                     }  bg-opacity-10 p-2 lh-sm`}
@@ -104,7 +160,9 @@ const ChatArea = () => {
                   >
                     <div className="">
                       <h6>
-                        {item.status === "receiver" ? "You" : currentChat.name}
+                        {item.role == "Receiver"
+                          ? "You"
+                          : currentChat.room?.name}
                       </h6>
                     </div>
                     <div>{item.message}</div>
@@ -114,19 +172,19 @@ const ChatArea = () => {
                     >
                       <div className="col-5 align-self-center">
                         <small className="" style={{ fontSize: "7pt" }}>
-                          {convertMySQLDateTimeToHourMinute(item.datetime)}
+                          {convertMySQLDateTimeToHourMinute(item.createdAt)}
                         </small>
                       </div>
                       <div className="col-3 text-end align-self-center">
                         <small className="text-end" style={{ fontSize: "7pt" }}>
-                          {convertMySQLDateTimeToDDMMYYYY(item.datetime)}
+                          {convertMySQLDateTimeToDDMMYYYY(item.createdAt)}
                         </small>
                       </div>
                     </div>
                   </div>
 
-                  {item.status === "receiver" ? (
-                    <div className={`ms-1 align-self-end`}>
+                  {item.role == "Receiver" ? (
+                    <div className={`me-1 align-self-end`}>
                       {item.isReaded ? <FaCheckDouble /> : <FaCheck />}
                     </div>
                   ) : (
@@ -150,6 +208,7 @@ const ChatArea = () => {
                       rows={2}
                       placeholder="Type here..."
                       name="message"
+                      onChange={readMessageHandler}
                     ></textarea>
                   </div>
                   <div className="col-1 my-auto">

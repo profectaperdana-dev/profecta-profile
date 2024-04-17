@@ -3,9 +3,12 @@
 import answer_question_data from "@/src/data/answer-question-data";
 import url from "@/utils/globals";
 import React, { useEffect, useState } from "react";
+import { useLoadingContext } from "../loading/loading-context";
+import Loading from "../loading";
 
 const FaqArea = () => {
   const [faqData, setFaqData] = useState(null);
+  const { isLoading, setIsLoading } = useLoadingContext();
 
   const getFaqData = async () => {
     try {
@@ -31,109 +34,117 @@ const FaqArea = () => {
   useEffect(() => {
     getFaqData().then((data) => {
       setFaqData(data);
+      setIsLoading(false);
     });
   }, []);
 
   return (
     <>
-      <div className="faq-page-area">
-        <div className="container">
-          <div className="row">
-            <div className="col-xl-6 col-lg-6 col-12">
-              <div className="tp-custom-accordio-2">
-                <div className="accordion" id="accordionExample">
-                  {faqData
-                    ? faqData.data
-                        .slice(0, faqData.data.length / 2 + 1)
-                        .map((item, i) => (
-                          <div key={i} className="accordion-items">
-                            <h2
-                              className="accordion-header"
-                              id={`heading${item.id}`}
-                            >
-                              <button
-                                className="accordion-buttons collapsed"
-                                type="button"
-                                data-bs-toggle="collapse"
-                                data-bs-target={`#collapse${item.id}`}
-                                aria-expanded={
-                                  item.id === "One" ? "true" : "false"
-                                }
-                                aria-controls={`collapse${item.id}`}
+      {isLoading ? (
+        <Loading />
+      ) : (
+        <div className="faq-page-area">
+          <div className="container">
+            <div className="row">
+              <div className="col-xl-6 col-lg-6 col-12">
+                <div className="tp-custom-accordio-2">
+                  <div className="accordion" id="accordionExample">
+                    {faqData
+                      ? faqData.data
+                          .slice(0, faqData.data.length / 2 + 1)
+                          .map((item, i) => (
+                            <div key={i} className="accordion-items">
+                              <h2
+                                className="accordion-header"
+                                id={`heading${item.id}`}
                               >
-                                {item.question}
-                              </button>
-                            </h2>
-                            <div
-                              id={`collapse${item.id}`}
-                              className={`accordion-collapse ${
-                                item.show ? "show" : ""
-                              } collapse`}
-                              aria-labelledby={`heading${item.id}`}
-                              data-bs-parent="#accordionExample"
-                            >
-                              <div className="accordion-body w-full">
-                                {item.answer}
-                                <div className="accordio-icon ">
-                                  <i className="flaticon-bubble-chat fs-1"></i>
+                                <button
+                                  className="accordion-buttons collapsed"
+                                  type="button"
+                                  data-bs-toggle="collapse"
+                                  data-bs-target={`#collapse${item.id}`}
+                                  aria-expanded={
+                                    item.id === "One" ? "true" : "false"
+                                  }
+                                  aria-controls={`collapse${item.id}`}
+                                >
+                                  {item.question}
+                                </button>
+                              </h2>
+                              <div
+                                id={`collapse${item.id}`}
+                                className={`accordion-collapse ${
+                                  item.show ? "show" : ""
+                                } collapse`}
+                                aria-labelledby={`heading${item.id}`}
+                                data-bs-parent="#accordionExample"
+                              >
+                                <div className="accordion-body w-full">
+                                  {item.answer}
+                                  <div className="accordio-icon ">
+                                    <i className="flaticon-bubble-chat fs-1"></i>
+                                  </div>
                                 </div>
                               </div>
                             </div>
-                          </div>
-                        ))
-                    : ""}
+                          ))
+                      : ""}
+                  </div>
                 </div>
               </div>
-            </div>
-            <div className="col-xl-6 col-lg-6 col-12">
-              <div className="tp-custom-accordio-2">
-                <div className="accordion" id="accordionExample2">
-                  {faqData
-                    ? faqData.data
-                        .slice(faqData.data.length / 2 + 1, faqData.data.length)
-                        .map((item, i) => (
-                          <div key={i} className="accordion-items">
-                            <h2
-                              className="accordion-header"
-                              id={`heading${item.id}`}
-                            >
-                              <button
-                                className="accordion-buttons collapsed"
-                                type="button"
-                                data-bs-toggle="collapse"
-                                data-bs-target={`#collapse${item.id}`}
-                                aria-expanded={
-                                  item.id === "One2" ? "true" : "false"
-                                }
-                                aria-controls={`collapse${item.id}`}
+              <div className="col-xl-6 col-lg-6 col-12">
+                <div className="tp-custom-accordio-2">
+                  <div className="accordion" id="accordionExample2">
+                    {faqData
+                      ? faqData.data
+                          .slice(
+                            faqData.data.length / 2 + 1,
+                            faqData.data.length
+                          )
+                          .map((item, i) => (
+                            <div key={i} className="accordion-items">
+                              <h2
+                                className="accordion-header"
+                                id={`heading${item.id}`}
                               >
-                                {item.question}
-                              </button>
-                            </h2>
-                            <div
-                              id={`collapse${item.id}`}
-                              className={`accordion-collapse ${
-                                item.show ? "show" : ""
-                              } collapse`}
-                              aria-labelledby={`heading${item.id}`}
-                              data-bs-parent="#accordionExample2"
-                            >
-                              <div className="accordion-body w-full">
-                                {item.answer}
-                                <div className="accordio-icon ">
-                                  <i className="flaticon-bubble-chat fs-1"></i>
+                                <button
+                                  className="accordion-buttons collapsed"
+                                  type="button"
+                                  data-bs-toggle="collapse"
+                                  data-bs-target={`#collapse${item.id}`}
+                                  aria-expanded={
+                                    item.id === "One2" ? "true" : "false"
+                                  }
+                                  aria-controls={`collapse${item.id}`}
+                                >
+                                  {item.question}
+                                </button>
+                              </h2>
+                              <div
+                                id={`collapse${item.id}`}
+                                className={`accordion-collapse ${
+                                  item.show ? "show" : ""
+                                } collapse`}
+                                aria-labelledby={`heading${item.id}`}
+                                data-bs-parent="#accordionExample2"
+                              >
+                                <div className="accordion-body w-full">
+                                  {item.answer}
+                                  <div className="accordio-icon ">
+                                    <i className="flaticon-bubble-chat fs-1"></i>
+                                  </div>
                                 </div>
                               </div>
                             </div>
-                          </div>
-                        ))
-                    : ""}
+                          ))
+                      : ""}
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
+      )}
     </>
   );
 };

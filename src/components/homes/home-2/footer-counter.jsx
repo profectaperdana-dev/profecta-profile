@@ -41,16 +41,19 @@ const FooterCounter = () => {
   const { homeData, url } = useHomeContext();
   return (
     <>
-      <div className="tp-footer-counter-area theme-bg pt-60 pb-50">
+      <div className="tp-footer-counter-area theme-bg pt-60 pb-20">
         <div className="container">
           <div className="row align-items-center">
-            <div className="col-xl-3 col-lg-6 col-md-6 text-lg-start">
+            <div className="col-xl-3 col-lg-6 col-md-6 text-lg-start mb-30">
               <div className="tp-counter-logo">
-                <img src={logo} alt="theme-pure" />
+                <img
+                  src={`https://apps.profectaperdana.com/images/logos.png`}
+                  alt="theme-pure"
+                />
               </div>
             </div>
             {/* {counter_info.map((item, i) => ( */}
-            <div className={`col-xl-3 col-lg-6 col-md-6 text-md-right`}>
+            <div className={`col-xl-3 col-lg-6 col-md-6 text-md-right mb-30`}>
               <div className="footer-counter-content d-md-flex align-items-center">
                 <h2>{homeData?.data?.costumer_total}</h2>
                 <div className="counter-text">
@@ -61,7 +64,7 @@ const FooterCounter = () => {
                 </div>
               </div>
             </div>
-            <div className={`col-xl-3 col-lg-6 col-md-6`}>
+            <div className={`col-xl-3 col-lg-6 col-md-6 mb-30`}>
               <div className="footer-counter-content d-md-flex align-items-center">
                 <h2>{homeData?.data?.sales_total}</h2>
                 <div className="counter-text">
@@ -72,7 +75,7 @@ const FooterCounter = () => {
                 </div>
               </div>
             </div>
-            <div className={`col-xl-3 col-lg-6 col-md-6`}>
+            <div className={`col-xl-3 col-lg-6 col-md-6 mb-30`}>
               <div className="footer-counter-content d-md-flex align-items-center">
                 <div className="counter-text">
                   <h3 className="me-2">

@@ -5,11 +5,14 @@ import ContactArea from "./contact-area";
 import ContactInfo from "./contact-info";
 import url from "@/utils/globals";
 import Footer from "@/src/layout/footers/footer";
+import { useLoadingContext } from "../loading/loading-context";
+import Loading from "../loading";
 
 const Contact = () => {
   const [areaData, setAreaData] = useState(null);
   const [contactData, setContactData] = useState(null);
   const [activatedArea, setActivatedArea] = useState(1);
+  const { isLoading, setIsLoading } = useLoadingContext();
 
   const getArea = async () => {
     const response = await fetch(`${url.PROFECTA_API_URL}/api/getarea`, {
@@ -62,20 +65,29 @@ const Contact = () => {
 
   useEffect(() => {
     getArea();
-    getContact();
+    getContact().then(() => {
+      setIsLoading(false);
+    });
   }, []);
 
   return (
     <>
       {/* <HeaderOne /> */}
       <Breadcrumb title={" Contact"} innertitle={"Contact Us"} />
-      <ContactArea
-        areaData={areaData}
-        contactData={contactData}
-        activatedArea={activatedArea}
-        filterContactHandler={filterContactHandler}
-      />
-      <ContactInfo contactData={contactData} />
+      {isLoading ? (
+        <Loading />
+      ) : (
+        <>
+          <ContactArea
+            areaData={areaData}
+            contactData={contactData}
+            activatedArea={activatedArea}
+            filterContactHandler={filterContactHandler}
+          />
+          <ContactInfo contactData={contactData} />
+        </>
+      )}
+
       <Footer />
     </>
   );

@@ -4,10 +4,13 @@ import ImagePopup from "@/src/modals/ImagePopup";
 import axios from "axios";
 import Link from "next/link";
 import url from "@/utils/globals";
+import Loading from "../loading";
+import { useLoadingContext } from "../loading/loading-context";
 const PortfolioArea = () => {
   //   const [categoriesData, setCategoriesData] = useState(null);
   //   const [categoryActive, setCategoryActive] = useState(-1);
   const [portfolioData, setPortfolioData] = useState(null);
+  const { isLoading, setIsLoading } = useLoadingContext();
 
   //   const getCategories = async () => {
   //     const response = await fetch(
@@ -81,14 +84,19 @@ const PortfolioArea = () => {
 
   useEffect(() => {
     // getCategories();
-    getPortfolio();
+    getPortfolio().then(() => {
+      setIsLoading(false);
+    });
   }, []);
 
   return (
     <>
-      <div className="tp-portfolio-area pt-110 pb-90">
-        <div className="container">
-          {/* <div className="row">
+      {isLoading ? (
+        <Loading />
+      ) : (
+        <div className="tp-portfolio-area pt-110 pb-90">
+          <div className="container">
+            {/* <div className="row">
             <div className="col-12 text-center">
               <div className="tp-port-button masonary-menu">
                 <button
@@ -112,64 +120,65 @@ const PortfolioArea = () => {
               </div>
             </div>
           </div> */}
-          <div className="row grid mixitup-active pt-40">
-            {portfolioData
-              ? portfolioData.data.map((item, i) => (
-                  <div
-                    key={i}
-                    className="col-xl-3 col-lg-6 col-md-6 grid-item cat3 cat5"
-                  >
-                    <div className="tp-port-item mb-30">
-                      <div className="tp-case-img">
-                        <div
-                          className="fix"
-                          style={{
-                            width: "100%",
-                            height: "19rem",
-                            // maxHeight: "18.5rem",
-                            // minHeight: "20rem",
-                            display: "flex",
-                            alignItems: "center",
-                            justifyContent: "center",
-                            overflow: "hidden",
-                            backgroundColor: "whitesmoke",
-                          }}
-                        >
-                          <img
-                            src={`${url.PROFECTA_API_URL}/public/images/cms/portfolios/${item.img}`}
-                            alt=""
-                            className="img-fluid"
+            <div className="row grid mixitup-active pt-40">
+              {portfolioData
+                ? portfolioData.data.map((item, i) => (
+                    <div
+                      key={i}
+                      className="col-xl-3 col-lg-6 col-md-6 grid-item cat3 cat5"
+                    >
+                      <div className="tp-port-item mb-30">
+                        <div className="tp-case-img">
+                          <div
+                            className="fix"
                             style={{
-                              maxWidth: "100%",
-                              maxHeight: "100%",
                               width: "100%",
-                              height: "100%",
-                              objectFit: "contain", // Atur objectFit ke 'contain' untuk memastikan gambar tidak dipotong
+                              height: "19rem",
+                              // maxHeight: "18.5rem",
+                              // minHeight: "20rem",
+                              display: "flex",
+                              alignItems: "center",
+                              justifyContent: "center",
+                              overflow: "hidden",
+                              backgroundColor: "whitesmoke",
                             }}
-                          />
-                        </div>
-                      </div>
-                      <div className="tp-port-content">
-                        <span className="port-title">{item.title}</span>
-                        <h3 className="port-subtitle">{item.description}</h3>
-                      </div>
-                      <div className="tp-port-icon">
-                        <div className="tp-port-icon">
-                          <button
-                            className="popup-image"
-                            onClick={() => handleImagePopup(i)}
                           >
-                            <i className="far fa-long-arrow-right"></i>
-                          </button>
+                            <img
+                              src={`${url.PROFECTA_API_URL}/public/images/cms/portfolios/${item.img}`}
+                              alt=""
+                              className="img-fluid"
+                              style={{
+                                maxWidth: "100%",
+                                maxHeight: "100%",
+                                width: "100%",
+                                height: "100%",
+                                objectFit: "contain", // Atur objectFit ke 'contain' untuk memastikan gambar tidak dipotong
+                              }}
+                            />
+                          </div>
+                        </div>
+                        <div className="tp-port-content">
+                          <span className="port-title">{item.title}</span>
+                          <h3 className="port-subtitle">{item.description}</h3>
+                        </div>
+                        <div className="tp-port-icon">
+                          <div className="tp-port-icon">
+                            <button
+                              className="popup-image"
+                              onClick={() => handleImagePopup(i)}
+                            >
+                              <i className="far fa-long-arrow-right"></i>
+                            </button>
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                ))
-              : ""}
+                  ))
+                : ""}
+            </div>
           </div>
         </div>
-      </div>
+      )}
 
       {/* image light box start */}
       {isOpen && (

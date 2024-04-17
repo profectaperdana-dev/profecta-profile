@@ -5,9 +5,20 @@ import {
   FaHeadset,
 } from "react-icons/fa6";
 import { useChatContext } from "./chat-context";
+import { io } from "socket.io-client";
+import url from "@/utils/globals";
+import { useEffect, useMemo } from "react";
+
 const SenderInfo = ({ setIsLogged }) => {
-  const { senderData, setSenderData, isHide, btnChatHandler } =
-    useChatContext();
+  const {
+    senderData,
+    setSenderData,
+    isHide,
+    btnChatHandler,
+    setRoomId,
+    setSocketData,
+    socketData,
+  } = useChatContext();
 
   const senderDataHandler = (e) => {
     setSenderData({ ...senderData, [e.target.name]: [e.target.value] });
@@ -47,7 +58,9 @@ const SenderInfo = ({ setIsLogged }) => {
       };
       create_room().then((data) => {
         alert(data.message);
+        setRoomId(data.roomId);
         setIsLogged(true);
+        socketData.emit("join_room", data.roomId);
       });
     }
   };

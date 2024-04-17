@@ -3,7 +3,7 @@ import prisma from "@/lib/prisma";
 export default async function handler(req, res) {
   const { name, email } = req.body;
 
-  const last_id = await prisma.live_Chat_Room.findMany({
+  const last_id = await prisma.live_chat_room.findMany({
     orderBy: {
       id: "desc",
     },
@@ -19,14 +19,15 @@ export default async function handler(req, res) {
   };
   const uniqid =
     last_id.length + generate_random(5) + last_id.length + generate_random(5);
-  await prisma.live_Chat_Room.create({
+  await prisma.live_chat_room.create({
     data: {
       uniqid: uniqid,
       name: name[0],
       email: email[0],
+      isOnline: true,
     },
   });
-  await prisma.live_Chat_Message.create({
+  await prisma.live_chat_message.create({
     data: {
       uniqid_room: uniqid,
       role: "Receiver",
@@ -35,5 +36,5 @@ export default async function handler(req, res) {
     },
   });
 
-  res.status(200).json({ message: "Room Berhasil dibuat" });
+  res.status(200).json({ message: "Room Berhasil dibuat", roomId: uniqid });
 }

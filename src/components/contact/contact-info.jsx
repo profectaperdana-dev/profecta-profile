@@ -72,7 +72,7 @@ const ContactInfo = ({ contactData }) => {
             <div className="row contact-last-child">
               <div className="col-xl-3 col-lg-3 col-md-6">
                 <div className="contact-info-item text-center mb-30">
-                  <i className={"fas fa-phone-alt"}></i>
+                  <i className="fab fa-whatsapp"></i>
                   <h5>Call Us Here</h5>
                   <a
                     href={`https://wa.me/${replaceZeroWithCountryCode(
@@ -121,32 +121,64 @@ const ContactInfo = ({ contactData }) => {
                   <i className={"fal fa-share-alt"}></i>
                   <h5>Social Connect</h5>
                   <div className="row justify-content-center">
-                    <div className="col-2">
-                      <a className="fs-2" href={contactData.data.shopee_url}>
-                        <SiShopee />
-                      </a>
-                    </div>
-                    <div className="col-2">
-                      <a className="fs-2" href={contactData.data.tokopedia_url}>
-                        <SiDuolingo />
-                      </a>
-                    </div>
+                    {contactData.data.shopee_url != "-" ? (
+                      <div className="col-2">
+                        <a className="fs-2" href={contactData.data.shopee_url}>
+                          <SiShopee />
+                        </a>
+                      </div>
+                    ) : (
+                      ""
+                    )}
 
-                    <div className="col-2">
-                      <a className="fs-2" href={contactData.data.instagram_url}>
-                        <SiInstagram />
-                      </a>
-                    </div>
-                    <div className="col-2">
-                      <a className="fs-2" href={contactData.data.facebook_url}>
-                        <SiFacebook />
-                      </a>
-                    </div>
-                    <div className="col-2">
-                      <a className="fs-2" href={contactData.data.tiktok_url}>
-                        <SiTiktok />
-                      </a>
-                    </div>
+                    {contactData.data.tokopedia_url != "-" ? (
+                      <div className="col-2">
+                        <a
+                          className="fs-2"
+                          href={contactData.data.tokopedia_url}
+                        >
+                          <SiDuolingo />
+                        </a>
+                      </div>
+                    ) : (
+                      ""
+                    )}
+
+                    {contactData.data.instagram_url != "-" ? (
+                      <div className="col-2">
+                        <a
+                          className="fs-2"
+                          href={contactData.data.instagram_url}
+                        >
+                          <SiInstagram />
+                        </a>
+                      </div>
+                    ) : (
+                      ""
+                    )}
+
+                    {contactData.data.facebook_url != "-" ? (
+                      <div className="col-2">
+                        <a
+                          className="fs-2"
+                          href={contactData.data.facebook_url}
+                        >
+                          <SiFacebook />
+                        </a>
+                      </div>
+                    ) : (
+                      ""
+                    )}
+
+                    {contactData.data.tiktok_url != "-" ? (
+                      <div className="col-2">
+                        <a className="fs-2" href={contactData.data.tiktok_url}>
+                          <SiTiktok />
+                        </a>
+                      </div>
+                    ) : (
+                      ""
+                    )}
                   </div>
                 </div>
               </div>

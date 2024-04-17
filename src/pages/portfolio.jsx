@@ -6,7 +6,7 @@ import Portfolio from "../components/portfolio";
 const index = () => {
   return (
     <Wrapper>
-      <SEO pageTitle={"Sectox - CCTV & Security"} />
+      <SEO pageTitle={"Portfolio - Profecta Perdana"} />
       <Portfolio />
     </Wrapper>
   );

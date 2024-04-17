@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 const ContactForm = () => {
   const [emailData, setEmailData] = useState({
     username: "",
+    phone: "",
     email: "",
     message: "",
   });
@@ -36,10 +37,12 @@ const ContactForm = () => {
         // setSendingEmailMessage(data?.message);
         setEmailData({
           username: "",
+          phone: "",
           email: "",
           message: "",
         });
         e.target.username.value = "";
+        e.target.phone.value = "";
         e.target.email.value = "";
         e.target.message.value = "";
       }
@@ -52,9 +55,9 @@ const ContactForm = () => {
     setIsLoading(false);
   };
 
-  useEffect(() => {
-    console.log(JSON.stringify(emailData));
-  }, [emailData]);
+  // useEffect(() => {
+  //   console.log(JSON.stringify(emailData));
+  // }, [emailData]);
   return (
     <>
       <form id="contact-form" onSubmit={handleSendEmail}>
@@ -70,6 +73,20 @@ const ContactForm = () => {
                 required
                 onChange={senderDataHandler}
                 defaultValue={emailData.username}
+              />
+            </div>
+          </div>
+          <div className="col-xxl-12 col-xl-12 col-lg-12 col-md-12">
+            <div className="contact__input">
+              <i className="fas fa-phone"></i>
+              <input
+                className="w-100"
+                type="text"
+                placeholder="Phone number"
+                name="phone"
+                required
+                onChange={senderDataHandler}
+                defaultValue={emailData.phone}
               />
             </div>
           </div>
@@ -103,18 +120,22 @@ const ContactForm = () => {
           </div>
           <div className="col-xxl-12 col-lg-12 col-md-12">
             <div className="contact__btn">
-              <button
-                className="tp-btn w-100"
-                disabled={isLoading}
-                type="submit"
-              >
-                Get a Quatation
-                {isLoading == "disabled" ? (
-                  <i className="fal fa-long-arrow-right"></i>
-                ) : (
-                  ""
-                )}
-              </button>
+              {isLoading ? (
+                "Sending process. Please wait..."
+              ) : (
+                <button
+                  className="tp-btn w-100"
+                  disabled={isLoading}
+                  type="submit"
+                >
+                  Get a Quatation
+                  {isLoading == "disabled" ? (
+                    <i className="fal fa-long-arrow-right"></i>
+                  ) : (
+                    ""
+                  )}
+                </button>
+              )}
             </div>
           </div>
         </div>

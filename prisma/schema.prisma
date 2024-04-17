@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -10,29 +7,291 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Live_Chat_Room {
+model about_journeys {
+  id          Int      @id @default(autoincrement())
+  year        String?  @db.VarChar(255)
+  title       String?  @db.VarChar(255)
+  description String?  @db.Text
+  created_at  DateTime @default(now()) @db.Timestamp(0)
+  updated_at  DateTime @default(now()) @db.Timestamp(0)
+  journeys_id Int
+}
+
+model about_provides {
+  id          Int      @id @default(autoincrement())
+  title       String?  @db.VarChar(255)
+  description String?  @db.Text
+  created_at  DateTime @default(now()) @db.Timestamp(0)
+  updated_at  DateTime @default(now()) @db.Timestamp(0)
+  provides_id Int
+}
+
+model abouts {
+  id                  Int      @id @default(autoincrement())
+  image_1             String?  @db.VarChar(255)
+  header_about        String?  @db.VarChar(255)
+  description_about   String?  @db.Text
+  image_2             String?  @db.VarChar(255)
+  header_history      String?  @db.VarChar(255)
+  description_history String?  @db.Text
+  created_at          DateTime @default(now()) @db.Timestamp(0)
+  updated_at          DateTime @default(now()) @db.Timestamp(0)
+}
+
+model answer {
+  id          Int      @id @default(autoincrement())
+  question_id Int
+  answer      String   @db.VarChar(255)
+  created_at  DateTime @default(now()) @db.Timestamp(0)
+  updated_at  DateTime @default(now()) @db.Timestamp(0)
+}
+
+model applican_answer {
+  id          Int      @id @default(autoincrement())
+  applican_id Int
+  question_id Int
+  answer_id   Int
+  created_at  DateTime @default(now()) @db.Timestamp(0)
+  updated_at  DateTime @default(now()) @db.Timestamp(0)
+}
+
+model areas {
+  id         Int       @id @default(autoincrement())
+  name       String    @db.VarChar(255)
+  created_at DateTime  @default(now()) @db.Timestamp(0)
+  updated_at DateTime  @default(now()) @db.Timestamp(0)
+  deleted_at DateTime? @default(now()) @db.Timestamp(0)
+}
+
+model blog_categories {
+  id         Int       @id @default(autoincrement())
+  name       String?   @db.VarChar(255)
+  created_at DateTime  @default(now()) @db.Timestamp(0)
+  updated_at DateTime  @default(now()) @db.Timestamp(0)
+  deleted_at DateTime? @db.Timestamp(0)
+}
+
+model blogs {
+  id          Int       @id @default(autoincrement())
+  title       String?   @db.Text
+  slug        String?   @db.Text
+  preview     String?   @db.Text
+  post_date   DateTime? @db.DateTime(0)
+  author      String?   @db.VarChar(255)
+  article     String?   @db.Text
+  category_id Int
+  isposted    Boolean   @default(false)
+  img_header  String?   @db.VarChar(255)
+  created_at  DateTime  @default(now()) @db.Timestamp(0)
+  updated_at  DateTime  @default(now()) @db.Timestamp(0)
+}
+
+model candidate {
+  id             Int              @id @default(autoincrement())
+  position       Int
+  nik            String           @db.VarChar(255)
+  name           String           @db.VarChar(255)
+  gender         candidate_gender
+  date_of_birth  DateTime         @db.Date
+  place_of_birth String           @db.VarChar(255)
+  address        String           @db.VarChar(255)
+  phone_number   String           @db.VarChar(255)
+  email          String           @db.VarChar(255)
+  campus         String           @db.VarChar(255)
+  major          String           @db.VarChar(255)
+  file           String           @db.VarChar(255)
+  created_at     DateTime         @default(now()) @db.Timestamp(0)
+  updated_at     DateTime         @default(now()) @db.Timestamp(0)
+}
+
+model contacts {
+  id            Int       @id @default(autoincrement())
+  area_id       Int
+  phone_1       String?   @db.VarChar(255)
+  phone_2       String?   @db.VarChar(255)
+  email         String?   @db.VarChar(255)
+  address       String?   @db.VarChar(255)
+  embedded_maps String?   @db.Text
+  shopee_url    String?   @db.VarChar(255)
+  tokopedia_url String?   @db.VarChar(255)
+  instagram_url String?   @db.VarChar(255)
+  facebook_url  String?   @db.VarChar(255)
+  tiktok_url    String?   @db.VarChar(255)
+  created_at    DateTime  @default(now()) @db.Timestamp(0)
+  updated_at    DateTime  @default(now()) @db.Timestamp(0)
+  deleted_at    DateTime? @db.Timestamp(0)
+}
+
+model faqs {
+  id          Int      @id @default(autoincrement())
+  sort_number Int
+  question    String   @db.Text
+  answer      String   @db.Text
+  created_by  Int
+  created_at  DateTime @default(now()) @db.Timestamp(0)
+  updated_at  DateTime @default(now()) @db.Timestamp(0)
+}
+
+model galleries {
+  id          Int      @id @default(autoincrement())
+  title       String   @default("-") @db.VarChar(255)
+  description String   @default("-") @db.Text
+  img         String   @db.VarChar(255)
+  category_id Int
+  created_by  Int
+  created_at  DateTime @default(now()) @db.Timestamp(0)
+  updated_at  DateTime @default(now()) @db.Timestamp(0)
+}
+
+model gallery_categories {
+  id         Int      @id @default(autoincrement())
+  name       String   @db.VarChar(255)
+  created_at DateTime @default(now()) @db.Timestamp(0)
+  updated_at DateTime @default(now()) @db.Timestamp(0)
+}
+
+model home_pages {
+  id             Int      @id @default(autoincrement())
+  img            String?  @db.VarChar(255)
+  title          String?  @db.VarChar(255)
+  description    String?  @db.Text
+  costumer_total String?  @db.VarChar(255)
+  sales_total    String?  @db.VarChar(255)
+  established    String?  @db.VarChar(255)
+  created_at     DateTime @default(now()) @db.Timestamp(0)
+  updated_at     DateTime @default(now()) @db.Timestamp(0)
+}
+
+model home_pages_banner {
+  id           Int      @id @default(autoincrement())
+  banner       String?  @db.VarChar(255)
+  title_banner String?  @db.VarChar(255)
+  caption      String?  @db.Text
+  banner_id    Int?
+  created_at   DateTime @default(now()) @db.Timestamp(0)
+  updated_at   DateTime @default(now()) @db.Timestamp(0)
+}
+
+model home_pages_benefit {
+  id            Int      @id @default(autoincrement())
+  title_benefit String?  @db.VarChar(255)
+  benefit_id    Int
+  created_at    DateTime @default(now()) @db.Timestamp(0)
+  updated_at    DateTime @default(now()) @db.Timestamp(0)
+}
+
+model home_pages_review {
+  id          Int      @id @default(autoincrement())
+  text_review String?  @db.Text
+  author      String?  @db.VarChar(255)
+  review_id   Int
+  created_at  DateTime @default(now()) @db.Timestamp(0)
+  updated_at  DateTime @default(now()) @db.Timestamp(0)
+}
+
+model job_description {
+  id               Int      @id @default(autoincrement())
+  job_vacancies_id Int
+  name             String   @db.VarChar(255)
+  created_at       DateTime @default(now()) @db.Timestamp(0)
+  updated_at       DateTime @default(now()) @db.Timestamp(0)
+}
+
+model job_qualification {
+  id               Int      @id @default(autoincrement())
+  job_vacancies_id Int
+  name             String   @db.VarChar(255)
+  created_at       DateTime @default(now()) @db.Timestamp(0)
+  updated_at       DateTime @default(now()) @db.Timestamp(0)
+}
+
+model job_vacancies {
+  id          Int      @id @default(autoincrement())
+  unique_id   String   @unique(map: "unique_id") @db.VarChar(255)
+  date_post   DateTime @db.Date
+  end_date    DateTime @db.Date
+  title       String   @db.VarChar(255)
+  description String   @db.Text
+  position    String   @db.VarChar(255)
+  status      Int      @default(1)
+  created_at  DateTime @default(now()) @db.Timestamp(0)
+  updated_at  DateTime @default(now()) @db.Timestamp(0)
+}
+
+model portfolio {
+  id          Int      @id @default(autoincrement())
+  product_id  Int
+  title       String   @db.Text
+  description String   @db.Text
+  image       String   @db.Text
+  created_at  DateTime @default(now()) @db.Timestamp(0)
+  updated_at  DateTime @default(now()) @db.Timestamp(0)
+}
+
+model portfolios {
+  id          Int      @id @default(autoincrement())
+  title       String   @db.VarChar(255)
+  description String   @db.Text
+  img         String   @db.VarChar(255)
+  created_at  DateTime @default(now()) @db.Timestamp(0)
+  updated_at  DateTime @default(now()) @db.Timestamp(0)
+}
+
+model question {
+  id               Int      @id @default(autoincrement())
+  job_vacancies_id Int
+  question         String   @db.VarChar(255)
+  created_at       DateTime @default(now()) @db.Timestamp(0)
+  updated_at       DateTime @default(now()) @db.Timestamp(0)
+}
+
+model teams {
+  id          Int      @id @default(autoincrement())
+  sort_number Int
+  employee_id Int
+  created_at  DateTime @default(now()) @db.Timestamp(0)
+  updated_at  DateTime @default(now()) @db.Timestamp(0)
+}
+
+model live_chat_message {
+  id             Int                    @id @default(autoincrement())
+  uniqid_room    String                 @db.VarChar(255)
+  role           live_chat_message_role @default(Receiver)
+  isReaded       Boolean
+  message        String                 @db.Text
+  createdAt      DateTime               @default(now())
+  updatedAt      DateTime               @default(now())
+  live_chat_room live_chat_room         @relation(fields: [uniqid_room], references: [uniqid], map: "Live_Chat_Message_uniqid_room_fkey")
+
+  @@index([uniqid_room], map: "Live_Chat_Message_uniqid_room_fkey")
+}
+
+model live_chat_room {
   id                Int                 @id @default(autoincrement())
-  uniqid            String              @unique @db.VarChar(255)
+  uniqid            String              @unique(map: "Live_Chat_Room_uniqid_key") @db.VarChar(255)
   name              String              @db.VarChar(255)
   email             String
-  isOnline          Boolean             @default(false)
   createdAt         DateTime            @default(now())
-  updatedAt         DateTime            @updatedAt
-  Live_Chat_Message Live_Chat_Message[]
+  updatedAt         DateTime            @default(now())
+  isOnline          Boolean             @default(false)
+  live_chat_message live_chat_message[]
 }
 
-enum Role {
+model live_chat_keys {
+  id         Int      @id @default(autoincrement())
+  user_id    Int
+  name       String   @db.VarChar(255)
+  auth_key   String   @db.VarChar(255)
+  created_at DateTime @default(now()) @db.Timestamp(0)
+  updated_at DateTime @default(now()) @db.Timestamp(0)
+}
+
+enum candidate_gender {
+  Female
+  Male
+}
+
+enum live_chat_message_role {
   Sender
   Receiver
-}
-
-model Live_Chat_Message {
-  id          Int            @id @default(autoincrement())
-  room        Live_Chat_Room @relation(fields: [uniqid_room], references: [uniqid])
-  uniqid_room String         @db.VarChar(255)
-  role        Role           @default(Receiver)
-  isReaded    Boolean
-  message     String         @db.Text
-  createdAt   DateTime       @default(now())
-  updatedAt   DateTime       @updatedAt
 }

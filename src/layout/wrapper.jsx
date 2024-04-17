@@ -1,8 +1,9 @@
 import ScrollToTop from "@/hooks/scroll-to-top";
 import { animationCreate } from "@/utils/utils";
-import React, { useEffect } from "react";
+import React, { Suspense, useEffect } from "react";
 import LiveChat from "@/src/components/live-chat";
 import HeaderOne from "./headers/header";
+import { LoadingProvider } from "../components/loading/loading-context";
 const Wrapper = ({ children }) => {
   useEffect(() => {
     setTimeout(() => {
@@ -13,7 +14,7 @@ const Wrapper = ({ children }) => {
   return (
     <>
       <HeaderOne />
-      {children}
+      <LoadingProvider>{children}</LoadingProvider>
       <ScrollToTop />
       <LiveChat />
     </>

@@ -1,5 +1,7 @@
 const { createContext, useContext, useState, useEffect } = require("react");
 import url from "@/utils/globals";
+import { useLoadingContext } from "../../loading/loading-context";
+import Loading from "../../loading";
 
 const homeContext = createContext();
 
@@ -12,6 +14,7 @@ export const HomeProvider = ({ children }) => {
   const [portfolioData, setPortfolioData] = useState(null);
   const [contactData, setContactData] = useState(null);
   const [recentBlogData, setRecentBlogData] = useState(null);
+  const { isLoading, setIsLoading } = useLoadingContext();
 
   const gethome = async () => {
     const response = await fetch(`${url.PROFECTA_API_URL}/api/gethomepage`, {
@@ -76,7 +79,9 @@ export const HomeProvider = ({ children }) => {
   }
 
   useEffect(() => {
-    gethome();
+    gethome().then(() => {
+      setIsLoading(false);
+    });
     getportfolio();
     getcontact();
     getrecentblog();
@@ -92,7 +97,7 @@ export const HomeProvider = ({ children }) => {
         replaceZeroWithCountryCode,
       }}
     >
-      {children}
+      {isLoading ? <Loading /> : children}
     </homeContext.Provider>
   );
 };
