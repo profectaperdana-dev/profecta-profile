@@ -1,14 +1,13 @@
 import Link from "next/link";
 import React from "react";
-import url from "@/utils/globals";
 
 const Breadcrumb = ({ title = "About", innertitle = "Blog Grid Classic" }) => {
   return (
     <>
       <section
-        className="breadcrumb__area include-bg pt-60 pb-60"
+        className="breadcrumb__area include-bg pt-150 pb-150"
         style={{
-          backgroundImage: `url(${url.PROFECTA_API_URL}/images/Profile-Web.jpg)`,
+          backgroundImage: `url(/assets/img/breadcrumb/Profile-WebIV.jpg)`,
         }}
       >
         <div className="container">
@@ -24,7 +23,7 @@ const Breadcrumb = ({ title = "About", innertitle = "Blog Grid Classic" }) => {
                   </span>
                   <span>{title}</span>
                 </div>
-                <h3 className="fs-1 fs-md-3">{innertitle}</h3>
+                <h3 className="fs-1 fs-md-3 text-white">{innertitle}</h3>
               </div>
             </div>
           </div>
