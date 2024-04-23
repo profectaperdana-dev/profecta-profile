@@ -10,6 +10,7 @@ const ServiceArea = () => {
   const [subMaterialData, setSubMaterialData] = useState(null);
   const [activeSubMaterial, setActiveSubMaterial] = useState(2);
   const [productData, setProductData] = useState(null);
+  const [showModal, setShowModal] = useState(false);
   const formRef = useRef(null);
   const { isLoading, setIsLoading } = useLoadingContext();
 
@@ -138,42 +139,91 @@ const ServiceArea = () => {
             <div className="row">
               {productData
                 ? productData.data.map((item, i) => (
-                    <div key={i} className="col-lg-3 col-md-6">
-                      <div className="tpservices" style={{ height: "100%" }}>
-                        <div className="tpservices__thumb">
-                          <div className="fix">
-                            <a href="#">
-                              <img
-                                src={`${url.PROFECTA_API_URL}/foto_produk/${
-                                  item.foto_barang
-                                    ? item.foto_barang
-                                    : "no-image.jpg"
-                                }`}
-                                alt="theme-pure"
-                              />
-                            </a>
+                    <>
+                      <div key={i} className="col-lg-3 col-md-6">
+                        <div className="tpservices" style={{ height: "100%" }}>
+                          <div className="tpservices__thumb">
+                            <div className="fix">
+                              <a href="#">
+                                <img
+                                  src={`${
+                                    url.PROFECTA_API_URL
+                                  }/public/images/cms/products/${
+                                    item.cms_product_by?.photo
+                                      ? item.cms_product_by?.photo
+                                      : "no-image.jpg"
+                                  }`}
+                                  alt="theme-pure"
+                                />
+                              </a>
+                            </div>
+                          </div>
+                          <div className="tpservices__content">
+                            {item.sub_materials.nama_sub_material ==
+                            "Continental" ? (
+                              <GiTyre className="display-4 text-success" />
+                            ) : (
+                              <FaCarBattery className="display-4 text-success" />
+                            )}
+
+                            <h5 className="tpservices__title fs-5">
+                              {`${item.sub_materials.nama_sub_material} ${item.type_name}`}
+                            </h5>
+                            {/* <p>{item.description}</p> */}
+                          </div>
+                          <div className="tpservices__btn">
+                            <button
+                              className="tp-btn w-100"
+                              data-bs-toggle="modal"
+                              data-bs-target={`#modal${i}`}
+                            >
+                              See the product
+                              <i className="fal fa-long-arrow-right"></i>
+                            </button>
                           </div>
                         </div>
-                        <div className="tpservices__content">
-                          {item.materials.nama_material == "Tyre" ? (
-                            <GiTyre className="display-4 text-success" />
-                          ) : (
-                            <FaCarBattery className="display-4 text-success" />
-                          )}
-
-                          <h5 className="tpservices__title fs-5">
-                            {`${item.sub_materials.nama_sub_material} ${item.sub_types.type_name} ${item.nama_barang}`}
-                          </h5>
-                          {/* <p>{item.description}</p> */}
-                        </div>
-                        {/* <div className="tpservices__btn">
-                        <a className="tp-btn w-100" href="#">
-                          Service Details{" "}
-                          <i className="fal fa-long-arrow-right"></i>
-                        </a>
-                      </div> */}
                       </div>
-                    </div>
+
+                      <div
+                        className="modal fade"
+                        id={`modal${i}`}
+                        tabIndex="-1"
+                      >
+                        <div className="modal-dialog">
+                          <div className="modal-content">
+                            <div className="modal-header">
+                              <h5
+                                className="modal-title"
+                                id="exampleModalLabel"
+                              >
+                                {`${item.sub_materials.nama_sub_material} ${item.type_name}`}
+                              </h5>
+                              <button
+                                type="button"
+                                className="btn-close"
+                                data-bs-dismiss="modal"
+                              ></button>
+                            </div>
+                            <div className="modal-body">
+                              <div
+                                dangerouslySetInnerHTML={{
+                                  __html: item.cms_product_by?.additional_desc,
+                                }}
+                              />
+                            </div>
+                            <div className="modal-footer">
+                              <button
+                                type="button"
+                                className="btn btn-secondary"
+                                data-bs-dismiss="modal"
+                              >
+                                Close
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </>
                   ))
                 : ""}
             </div>

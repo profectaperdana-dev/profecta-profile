@@ -69,11 +69,11 @@ const ContactInfo = ({ contactData }) => {
       {contactData ? (
         <div className="tp-contact-info pb-90">
           <div className="container">
-            <div className="row contact-last-child">
-              <div className="col-xl-3 col-lg-3 col-md-6">
+            <div className="row contact-last-child justify-content-center">
+              <div className="col-xl-2 col-lg-3 col-md-6">
                 <div className="contact-info-item text-center mb-30">
                   <i className="fab fa-whatsapp"></i>
-                  <h5>Call Us Here</h5>
+                  <h5>Contact Us</h5>
                   <a
                     href={`https://wa.me/${replaceZeroWithCountryCode(
                       contactData.data.phone_1
@@ -95,7 +95,7 @@ const ContactInfo = ({ contactData }) => {
                 </div>
               </div>
 
-              <div className="col-xl-3 col-lg-3 col-md-6">
+              <div className="col-xl-2 col-lg-3 col-md-6">
                 <div className="contact-info-item text-center mb-30">
                   <i className={"fas fa-envelope"}></i>
                   <h5>Email Address</h5>
@@ -106,20 +106,20 @@ const ContactInfo = ({ contactData }) => {
                 </div>
               </div>
 
-              <div className="col-xl-3 col-lg-3 col-md-6">
+              <div className="col-xl-2 col-lg-3 col-md-6">
                 <div className="contact-info-item text-center mb-30">
                   <i className={"fas fa-map-marker-alt"}></i>
-                  <h5>Meet Us Here</h5>
+                  <h5>Find Us</h5>
 
                   {contactData.data.address}
                   <br />
                 </div>
               </div>
 
-              <div className="col-xl-3 col-lg-3 col-md-6">
+              <div className="col-xl-2 col-lg-3 col-md-6">
                 <div className="contact-info-item text-center mb-30">
                   <i className={"fal fa-share-alt"}></i>
-                  <h5>Social Connect</h5>
+                  <h5>E-Commerce</h5>
                   <div className="row justify-content-center">
                     {contactData.data.shopee_url != "-" ? (
                       <div className="col-2">
@@ -143,6 +143,73 @@ const ContactInfo = ({ contactData }) => {
                     ) : (
                       ""
                     )}
+
+                    {/* {contactData.data.instagram_url != "-" ? (
+                      <div className="col-2">
+                        <a
+                          className="fs-2"
+                          href={contactData.data.instagram_url}
+                        >
+                          <SiInstagram />
+                        </a>
+                      </div>
+                    ) : (
+                      ""
+                    )} */}
+
+                    {contactData.data.facebook_url != "-" ? (
+                      <div className="col-2">
+                        <a
+                          className="fs-2"
+                          href={contactData.data.facebook_url}
+                        >
+                          <SiFacebook />
+                        </a>
+                      </div>
+                    ) : (
+                      ""
+                    )}
+
+                    {contactData.data.tiktok_url != "-" ? (
+                      <div className="col-2">
+                        <a className="fs-2" href={contactData.data.tiktok_url}>
+                          <SiTiktok />
+                        </a>
+                      </div>
+                    ) : (
+                      ""
+                    )}
+                  </div>
+                </div>
+              </div>
+
+              <div className="col-xl-2 col-lg-3 col-md-6">
+                <div className="contact-info-item text-center mb-30">
+                  <i className={"fal fa-share-alt"}></i>
+                  <h5>Social Media</h5>
+                  <div className="row justify-content-center">
+                    {/* {contactData.data.shopee_url != "-" ? (
+                      <div className="col-2">
+                        <a className="fs-2" href={contactData.data.shopee_url}>
+                          <SiShopee />
+                        </a>
+                      </div>
+                    ) : (
+                      ""
+                    )} */}
+
+                    {/* {contactData.data.tokopedia_url != "-" ? (
+                      <div className="col-2">
+                        <a
+                          className="fs-2"
+                          href={contactData.data.tokopedia_url}
+                        >
+                          <SiDuolingo />
+                        </a>
+                      </div>
+                    ) : (
+                      ""
+                    )} */}
 
                     {contactData.data.instagram_url != "-" ? (
                       <div className="col-2">

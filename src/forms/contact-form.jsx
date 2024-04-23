@@ -128,7 +128,7 @@ const ContactForm = () => {
                   disabled={isLoading}
                   type="submit"
                 >
-                  Get a Quatation
+                  Get a Quotation
                   {isLoading == "disabled" ? (
                     <i className="fal fa-long-arrow-right"></i>
                   ) : (

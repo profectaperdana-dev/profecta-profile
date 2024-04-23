@@ -1,4 +1,7 @@
 import React from "react";
+import { FaAmazon, FaBacteria } from "react-icons/fa6";
+import { TbSettings } from "react-icons/tb";
+import url from "@/utils/globals";
 
 const service_data = [
   {
@@ -57,7 +60,17 @@ const ServiceArea = ({ aboutData }) => {
                 className=" col-xxl-3 col-xl-3 col-lg-6 col-md-6 mb-30"
               >
                 <div className="tpprocess-hm-4 p-relative">
-                  <div className="process-content"></div>
+                  {/* <div className="process-content"></div> */}
+                  {/* <TbSettings className="display-1 process-content text-success" /> */}
+                  {item.image ? (
+                    <img
+                      src={`${url.PROFECTA_API_URL}/public/images/cms/abouts/${item.image}`}
+                      className="process-content"
+                    />
+                  ) : (
+                    <TbSettings className="display-1 process-content text-success" />
+                  )}
+
                   <span className="flaticon-secure">
                     <i className={`flaticon-settings`}></i>
                   </span>

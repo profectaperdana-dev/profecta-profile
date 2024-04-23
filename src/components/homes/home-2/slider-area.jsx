@@ -7,6 +7,10 @@ const setting = {
   fade: true,
   slidesToShow: 1,
   arrows: false,
+  autoplay: true,
+  autoplaySpeed: 7000,
+  pauseOnHover: false,
+  swipeToSlide: true,
   responsive: [
     {
       breakpoint: 992,

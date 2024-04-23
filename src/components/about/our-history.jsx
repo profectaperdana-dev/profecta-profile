@@ -73,18 +73,20 @@ const OurHistory = ({ aboutData }) => {
               </div>
             </div>
             <div className="col-xxl-6 col-xl-7 col-lg-12">
-              {aboutData?.journey_by.map((item, i) => (
-                <div
-                  key={i}
-                  className="tp-ab-4-right d-flex align-items-center"
-                >
-                  <h4>{item.year}</h4>
-                  <div className="ab-4-content">
-                    <h3>{item.title}</h3>
-                    <p>{item.description}</p>
+              {aboutData?.journey_by
+                .sort((a, b) => a.year - b.year)
+                .map((item, i) => (
+                  <div
+                    key={i}
+                    className="tp-ab-4-right d-flex align-items-center"
+                  >
+                    <h4>{item.year}</h4>
+                    <div className="ab-4-content">
+                      <h3>{item.title}</h3>
+                      <p>{item.description}</p>
+                    </div>
                   </div>
-                </div>
-              ))}
+                ))}
             </div>
           </div>
         </div>

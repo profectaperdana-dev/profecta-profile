@@ -65,34 +65,32 @@ const GallaryArea = ({ aboutData }) => {
   const img = gallery_data.map((item) => item);
   return (
     <>
-      <div className="row">
-        <div
-          className="col-12 justify-content-center"
+      <div
+        className="col-12 justify-content-center"
+        style={{
+          width: "100%",
+          height: "100%",
+          // maxHeight: "18.5rem",
+          // minHeight: "20rem",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          overflow: "hidden",
+          backgroundColor: "whitesmoke",
+        }}
+      >
+        <img
+          className=""
           style={{
+            maxWidth: "100%",
+            maxHeight: "100%",
             width: "100%",
             height: "100%",
-            // maxHeight: "18.5rem",
-            // minHeight: "20rem",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            overflow: "hidden",
-            backgroundColor: "whitesmoke",
+            objectFit: "contain", // Atur objectFit ke 'contain' untuk memastikan gambar tidak dipotong
           }}
-        >
-          <img
-            className=""
-            style={{
-              maxWidth: "100%",
-              maxHeight: "100%",
-              width: "100%",
-              height: "100%",
-              objectFit: "contain", // Atur objectFit ke 'contain' untuk memastikan gambar tidak dipotong
-            }}
-            src={`${url.PROFECTA_API_URL}/public/images/cms/abouts/${aboutData?.image_2}`}
-            alt="theme-pure"
-          />
-        </div>
+          src={`${url.PROFECTA_API_URL}/public/images/cms/abouts/${aboutData?.image_2}`}
+          alt="theme-pure"
+        />
       </div>
       {/* <div className="gallary-area mb-115">
         <div className="container-fluid p-0"> */}
