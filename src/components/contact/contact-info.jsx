@@ -1,11 +1,12 @@
 import React, { useEffect } from "react";
-import { FaAnchor, FaTiktok } from "react-icons/fa6";
+import { FaAnchor, FaBagShopping, FaStore, FaTiktok } from "react-icons/fa6";
 import {
   SiDuolingo,
   SiFacebook,
   SiInstagram,
   SiShopee,
   SiTiktok,
+  SiWallabag,
 } from "react-icons/si";
 import { TbSquareRoundedLetterT } from "react-icons/tb";
 
@@ -118,7 +119,7 @@ const ContactInfo = ({ contactData }) => {
 
               <div className="col-xl-2 col-lg-3 col-md-6">
                 <div className="contact-info-item text-center mb-30">
-                  <i className={"fal fa-share-alt"}></i>
+                  <i className="fa fa-shopping-bag"></i>
                   <h5>E-Commerce</h5>
                   <div className="row justify-content-center">
                     {contactData.data.shopee_url != "-" ? (
@@ -137,7 +138,7 @@ const ContactInfo = ({ contactData }) => {
                           className="fs-2"
                           href={contactData.data.tokopedia_url}
                         >
-                          <SiDuolingo />
+                          <FaStore />
                         </a>
                       </div>
                     ) : (

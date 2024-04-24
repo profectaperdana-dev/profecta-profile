@@ -10,8 +10,8 @@ export default async function POST(req, res) {
     // Transporter
     const transporter = nodemailer.createTransport({
       host: process.env.SMTP_HOST,
-      port: 587,
-      //   secure: false,
+      port: 465,
+      secure: true,
       tls: {
         ciphers: "SSLv3",
         rejectUnauthorized: false,
