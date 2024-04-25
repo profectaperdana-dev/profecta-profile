@@ -67,7 +67,9 @@ const CtaArea = () => {
                     </div>
                     <div className="tp-cta-content">
                       <label>Shopee</label>
-                      <a href={contactData?.data?.shopee_url}>Marketplace</a>
+                      <a target="_blank" href={contactData?.data?.shopee_url}>
+                        Marketplace
+                      </a>
                     </div>
                   </div>
                   <div className="tp-cta-box d-flex align-items-center col-12 col-lg-4 mb-3">
@@ -78,7 +80,12 @@ const CtaArea = () => {
                     </div>
                     <div className="tp-cta-content">
                       <label>Tokopedia</label>
-                      <a href={contactData?.data?.tokopedia_url}>Marketplace</a>
+                      <a
+                        target="_blank"
+                        href={contactData?.data?.tokopedia_url}
+                      >
+                        Marketplace
+                      </a>
                     </div>
                   </div>
                   <br />
@@ -91,6 +98,7 @@ const CtaArea = () => {
                     <div className="tp-cta-content">
                       <label>Whatsapp</label>
                       <a
+                        target="_blank"
                         href={`https://wa.me/${replaceZeroWithCountryCode(
                           contactData?.data?.phone_1
                         )}`}
@@ -107,7 +115,10 @@ const CtaArea = () => {
                     </div>
                     <div className="tp-cta-content">
                       <label>Email</label>
-                      <a href={`mailto:${contactData?.data?.email}`}>
+                      <a
+                        target="_blank"
+                        href={`mailto:${contactData?.data?.email}`}
+                      >
                         {contactData?.data?.email}
                       </a>
                     </div>

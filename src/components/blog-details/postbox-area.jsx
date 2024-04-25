@@ -10,6 +10,8 @@ import { useRouter } from "next/router";
 import url from "@/utils/globals";
 import { useLoadingContext } from "../loading/loading-context";
 import Loading from "../loading";
+import HTMLReactParser from "html-react-parser";
+import DOMPurify from "dompurify";
 
 const PostboxArea = () => {
   const router = useRouter();
@@ -92,11 +94,17 @@ const PostboxArea = () => {
                             alt="theme-pure"
                           />
                         </p>
-                        <div
+                        <div>
+                          {HTMLReactParser(
+                            DOMPurify.sanitize(contentdata?.data?.article)
+                          )}
+                        </div>
+
+                        {/* <div
                           dangerouslySetInnerHTML={{
                             __html: contentdata?.data?.article,
                           }}
-                        />
+                        /> */}
                       </div>
 
                       <div className="postbox__tag tagcloud">

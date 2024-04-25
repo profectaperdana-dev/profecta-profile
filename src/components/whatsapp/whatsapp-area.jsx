@@ -59,7 +59,7 @@ const WhatsappArea = () => {
         <ul className="dropdown-menu">
           {contactPhone
             ? contactPhone?.data?.map((item, i) => (
-                <li key={i}>
+                <li key={`whatsapp${i}`}>
                   <a
                     className="dropdown-item"
                     target="_blank"

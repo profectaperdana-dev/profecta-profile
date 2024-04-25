@@ -5,6 +5,8 @@ import { FaBatteryFull, FaCarBattery } from "react-icons/fa6";
 import { GiTyre } from "react-icons/gi";
 import { useLoadingContext } from "../loading/loading-context";
 import Loading from "../loading";
+import HTMLReactParser from "html-react-parser";
+import DOMPurify from "dompurify";
 
 const ServiceArea = () => {
   const [subMaterialData, setSubMaterialData] = useState(null);
@@ -127,7 +129,7 @@ const ServiceArea = () => {
                 ? subMaterialData.data.map((item, i) => (
                     <button
                       onClick={() => productFilterHandler(item.id)}
-                      key={i}
+                      key={`productfilter${i}`}
                       className={item.id == activeSubMaterial ? "active" : ""}
                     >
                       {item.nama_sub_material}
@@ -143,7 +145,7 @@ const ServiceArea = () => {
               {productData
                 ? productData.data.map((item, i) => (
                     <>
-                      <div key={i} className="col-lg-3 col-md-6">
+                      <div key={`product${i}`} className="col-lg-3 col-md-6">
                         <div className="tpservices" style={{ height: "100%" }}>
                           <div className="tpservices__thumb">
                             <div className="fix">
@@ -197,10 +199,7 @@ const ServiceArea = () => {
                         <div className="modal-dialog">
                           <div className="modal-content">
                             <div className="modal-header">
-                              <h5
-                                className="modal-title"
-                                id="exampleModalLabel"
-                              >
+                              <h5 className="modal-title">
                                 {`${item.sub_materials.nama_sub_material} ${item.type_name}`}
                               </h5>
                               <button
@@ -210,11 +209,19 @@ const ServiceArea = () => {
                               ></button>
                             </div>
                             <div className="modal-body">
-                              <div
+                              <div key={`content${i}`}>
+                                {HTMLReactParser(
+                                  DOMPurify.sanitize(
+                                    item.cms_product_by?.additional_desc
+                                  )
+                                )}
+                              </div>
+                              {/* <div
+                                key={`content${i}`}
                                 dangerouslySetInnerHTML={{
                                   __html: item.cms_product_by?.additional_desc,
                                 }}
-                              />
+                              /> */}
                             </div>
                             <div className="modal-footer">
                               <button

@@ -124,7 +124,11 @@ const ContactInfo = ({ contactData }) => {
                   <div className="row justify-content-center">
                     {contactData.data.shopee_url != "-" ? (
                       <div className="col-2">
-                        <a className="fs-2" href={contactData.data.shopee_url}>
+                        <a
+                          target="_blank"
+                          className="fs-2"
+                          href={contactData.data.shopee_url}
+                        >
                           <SiShopee />
                         </a>
                       </div>
@@ -135,6 +139,7 @@ const ContactInfo = ({ contactData }) => {
                     {contactData.data.tokopedia_url != "-" ? (
                       <div className="col-2">
                         <a
+                          target="_blank"
                           className="fs-2"
                           href={contactData.data.tokopedia_url}
                         >
@@ -161,6 +166,7 @@ const ContactInfo = ({ contactData }) => {
                     {contactData.data.facebook_url != "-" ? (
                       <div className="col-2">
                         <a
+                          target="_blank"
                           className="fs-2"
                           href={contactData.data.facebook_url}
                         >
@@ -173,7 +179,11 @@ const ContactInfo = ({ contactData }) => {
 
                     {contactData.data.tiktok_url != "-" ? (
                       <div className="col-2">
-                        <a className="fs-2" href={contactData.data.tiktok_url}>
+                        <a
+                          className="fs-2"
+                          target="_blank"
+                          href={contactData.data.tiktok_url}
+                        >
                           <SiTiktok />
                         </a>
                       </div>
@@ -215,6 +225,7 @@ const ContactInfo = ({ contactData }) => {
                     {contactData.data.instagram_url != "-" ? (
                       <div className="col-2">
                         <a
+                          target="_blank"
                           className="fs-2"
                           href={contactData.data.instagram_url}
                         >
@@ -228,6 +239,7 @@ const ContactInfo = ({ contactData }) => {
                     {contactData.data.facebook_url != "-" ? (
                       <div className="col-2">
                         <a
+                          target="_blank"
                           className="fs-2"
                           href={contactData.data.facebook_url}
                         >
@@ -240,7 +252,11 @@ const ContactInfo = ({ contactData }) => {
 
                     {contactData.data.tiktok_url != "-" ? (
                       <div className="col-2">
-                        <a className="fs-2" href={contactData.data.tiktok_url}>
+                        <a
+                          target="_blank"
+                          className="fs-2"
+                          href={contactData.data.tiktok_url}
+                        >
                           <SiTiktok />
                         </a>
                       </div>
