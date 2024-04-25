@@ -1,7 +1,7 @@
 import React from "react";
 import { useHomeContext } from "./home-context";
 import { SiDuolingo, SiGmail, SiShopee, SiWhatsapp } from "react-icons/si";
-import { FaArrowRight } from "react-icons/fa6";
+import { FaArrowRight, FaStore } from "react-icons/fa6";
 import Link from "next/link";
 
 const cta_content = {
@@ -73,7 +73,7 @@ const CtaArea = () => {
                   <div className="tp-cta-box d-flex align-items-center col-12 col-lg-4 mb-3">
                     <div className="tp-cta-icon">
                       <a href="#">
-                        <SiDuolingo className="fs-3" />
+                        <FaStore className="fs-3" />
                       </a>
                     </div>
                     <div className="tp-cta-content">

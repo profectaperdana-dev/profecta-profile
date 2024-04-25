@@ -122,7 +122,7 @@ const ServiceArea = () => {
               </div>
             </div>
 
-            <div className="tp-port-button masonary-menu mb-4 mt-3 text-center">
+            <div className="tp-port-button masonary-menu mb-5 mt-3 text-center">
               {subMaterialData
                 ? subMaterialData.data.map((item, i) => (
                     <button
@@ -136,7 +136,10 @@ const ServiceArea = () => {
                 : ""}
             </div>
 
-            <div className="row">
+            <br />
+            <br />
+
+            <div className="row mt-5">
               {productData
                 ? productData.data.map((item, i) => (
                     <>
@@ -188,6 +191,7 @@ const ServiceArea = () => {
                         className="modal fade"
                         id={`modal${i}`}
                         tabIndex="-1"
+                        key={`m${i}`}
                       >
                         <div className="modal-dialog">
                           <div className="modal-content">

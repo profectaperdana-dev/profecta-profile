@@ -8,6 +8,7 @@ import {
   SiTiktok,
 } from "react-icons/si";
 import url from "@/utils/globals";
+import { FaStore } from "react-icons/fa6";
 
 const social_links = [
   {
@@ -59,33 +60,66 @@ const SocialLinks = () => {
   }, []);
   return (
     <>
-      <a href={contactData?.data?.shopee_url} className={``} target={`_blank`}>
-        <SiShopee className="fs-5" />
-      </a>
-      <a
-        href={contactData?.data?.tokopedia_url}
-        className={``}
-        target={`_blank`}
-      >
-        <SiDuolingo className="fs-5" />
-      </a>
-      <a
-        href={contactData?.data?.instagram_url}
-        className={``}
-        target={`_blank`}
-      >
-        <SiInstagram className="fs-5" />
-      </a>
-      <a
-        href={contactData?.data?.facebook_url}
-        className={``}
-        target={`_blank`}
-      >
-        <SiFacebook className="fs-5" />
-      </a>
-      <a href={contactData?.data?.tiktok_url} className={``} target={`_blank`}>
-        <SiTiktok className="fs-5" />
-      </a>
+      {contactData?.data?.shopee_url != "-" ? (
+        <a
+          href={contactData?.data?.shopee_url}
+          className={``}
+          target={`_blank`}
+        >
+          <SiShopee className="fs-5" />
+        </a>
+      ) : (
+        ""
+      )}
+
+      {contactData?.data?.tokopedia_url != "-" ? (
+        <a
+          href={contactData?.data?.tokopedia_url}
+          className={``}
+          target={`_blank`}
+        >
+          <FaStore className="fs-5" />
+        </a>
+      ) : (
+        ""
+      )}
+
+      {contactData?.data?.instagram_url != "-" ? (
+        <a
+          href={contactData?.data?.instagram_url}
+          className={``}
+          target={`_blank`}
+        >
+          <SiInstagram className="fs-5" />
+        </a>
+      ) : (
+        ""
+      )}
+
+      {contactData?.data?.facebook_url != "-" ? (
+        <a
+          href={contactData?.data?.facebook_url}
+          className={``}
+          target={`_blank`}
+        >
+          <SiFacebook className="fs-5" />
+        </a>
+      ) : (
+        ""
+      )}
+
+      {contactData?.data?.tiktok_url != "-" ? (
+        <a
+          href={contactData?.data?.tiktok_url}
+          className={``}
+          target={`_blank`}
+        >
+          <SiTiktok className="fs-5" />
+        </a>
+      ) : (
+        ""
+      )}
+
       {/* {social_links.map((l, i) => (
         <a
           key={i}

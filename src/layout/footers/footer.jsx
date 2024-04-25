@@ -128,9 +128,11 @@ const Footer = ({ style_2 }) => {
                     style_2 ? "footer-widget-2 footer-col-3" : "footer-col-4"
                   } mb-50`}
                 >
-                  <h3 className="footer-widget-title">Get Newsletter</h3>
-                  <p>Sign up today for hints, tips & the latest product news</p>
-                  <div className="footer-subscribe">
+                  <h3 className="footer-widget-title">
+                    Social Media and E-commerce
+                  </h3>
+                  {/* <p>Sign up today for hints, tips & the latest product news</p> */}
+                  {/* <div className="footer-subscribe">
                     <form onSubmit={(e) => e.preventDefault()}>
                       <input type="email" placeholder="Email address" />
                       <button type="submit">
@@ -138,7 +140,7 @@ const Footer = ({ style_2 }) => {
                         <i className="far fa-envelope-open"></i>
                       </button>
                     </form>
-                  </div>
+                  </div> */}
                   <div className="footer-social mt-20">
                     <SocialLinks />
                   </div>
