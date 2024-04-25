@@ -152,7 +152,8 @@ const ServiceArea = () => {
                                   src={`${
                                     url.PROFECTA_API_URL
                                   }/public/images/cms/products/${
-                                    item.cms_product_by?.photo
+                                    item.cms_product_by?.photo &&
+                                    item.cms_product_by?.photo != "blank"
                                       ? item.cms_product_by?.photo
                                       : "no-image.jpg"
                                   }`}
