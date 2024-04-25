@@ -35,9 +35,7 @@ const WhatsappArea = () => {
   }
 
   useEffect(() => {
-    getareaandphone().then(() => {
-      console.log(contactPhone);
-    });
+    getareaandphone();
   }, []);
 
   return (
@@ -58,12 +56,12 @@ const WhatsappArea = () => {
           <FaWhatsapp className="fs-1" />
           {/* <FaRegCommentDots className="fs-3" /> */}
         </button>
-        <ul class="dropdown-menu">
+        <ul className="dropdown-menu">
           {contactPhone
             ? contactPhone?.data?.map((item, i) => (
                 <li key={i}>
                   <a
-                    class="dropdown-item"
+                    className="dropdown-item"
                     target="_blank"
                     href={`https://wa.me/${replaceZeroWithCountryCode(
                       item.phone_1

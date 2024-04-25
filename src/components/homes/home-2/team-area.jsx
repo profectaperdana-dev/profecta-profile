@@ -80,10 +80,7 @@ const TeamArea = () => {
                     ? homeData.data.review_by.map((item, i) => (
                         <div key={i}>
                           <div className="tp-team-item">
-                            <div
-                              className="tp-team-img p-relative"
-                              style={{ height: "200px" }}
-                            >
+                            <div className="tp-team-img p-relative">
                               <div>
                                 <FaStar className="text-warning" />
                                 <FaStar className="text-warning" />
