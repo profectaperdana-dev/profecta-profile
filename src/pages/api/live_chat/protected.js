@@ -1,5 +1,4 @@
 import jwt from "jsonwebtoken";
-import { headers } from "next/headers";
 
 export default async function GET(req, res) {
   //   const headersInstance = headers();
