@@ -13,7 +13,7 @@ const footer_content = {
   location_palembang: (
     <>
       Jl. Brigjen. H. Kasim, Ruko Jaya Raya, No.12 Palembang - South Sumatera
-      Phone : 0711-8254-56
+      Phone : 0711-8254-56-66666
     </>
   ),
   location_jambi: (
