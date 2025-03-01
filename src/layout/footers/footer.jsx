@@ -13,7 +13,7 @@ const footer_content = {
   location_palembang: (
     <>
       Jl. Brigjen. H. Kasim, Ruko Jaya Raya, No.12 Palembang - South Sumatera
-      Phone : 0711-8254-56-66666
+      Phone : 0711-8254-56
     </>
   ),
   location_jambi: (
@@ -21,6 +21,13 @@ const footer_content = {
       {" "}
       Jl.Abdul Rahman Saleh Kel.Pasir Putih Kec.Jambi Selatan, Kota Jambi <br />
       Phone : 0811-7819-980
+    </>
+  ),
+  location_bengkulu: (
+    <>
+      {" "}
+      Jl. Kapuas no.17 RT 014 / Rw 004 , Padang Harapan , Gading cempaka, Kota Bengkulu
+      Phone : 0811-6119-009
     </>
   ),
   office_time: (
@@ -96,6 +103,7 @@ const Footer = ({ style_2 }) => {
                     <div className="footer-contact-item">
                       <p>Palembang : {location_palembang}</p>
                       <p>Jambi : {location_jambi}</p>
+                      <p>Bengkulu : {location_bengkulu}</p>
                     </div>
                     <div className="footer-contact-item">
                       <p>{office_time}</p>
