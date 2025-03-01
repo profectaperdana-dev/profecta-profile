@@ -96,7 +96,8 @@ const Footer = ({ style_2 }) => {
                     <div className="footer-contact-item">
                       <p>Palembang : {location_palembang}</p>
                       <p>Jambi : {location_jambi}</p>
-                      <p>Bengkulu : adawdadsawdddwadsdaw</p>
+                      <p>Bengkulu : Jl. Kapuas no.17 RT 014 / Rw 004 , Padang Harapan , Gading cempaka, Kota Bengkulu
+                                    Phone : 0811-6119-009</p>
                     </div>
                     <div className="footer-contact-item">
                       <p>{office_time}</p>
