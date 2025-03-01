@@ -23,13 +23,6 @@ const footer_content = {
       Phone : 0811-7819-980
     </>
   ),
-  location_bengkulu: (
-    <>
-      {" "}
-      Jl. Kapuas no.17 RT 014 / Rw 004 , Padang Harapan , Gading cempaka, Kota Bengkulu
-      Phone : 0811-6119-009
-    </>
-  ),
   office_time: (
     <>
       Mon – Fri: 08.30 – 16.30 <br /> St: 08.30 – 15.00
@@ -103,7 +96,7 @@ const Footer = ({ style_2 }) => {
                     <div className="footer-contact-item">
                       <p>Palembang : {location_palembang}</p>
                       <p>Jambi : {location_jambi}</p>
-                      <p>Bengkulu : {location_bengkulu}</p>
+                      <p>Bengkulu : adawdadsawdddwadsdaw</p>
                     </div>
                     <div className="footer-contact-item">
                       <p>{office_time}</p>
