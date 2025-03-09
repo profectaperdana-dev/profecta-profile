@@ -20,6 +20,20 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
                         <li>Jl. Brigjen. H. Kasim, Ruko Jaya Raya, No.12 Palembang - South Sumatera</li>
                         <li>0711-8254-56</li>
                     </ul>
+                    <div className="sidebar-title">
+                        <h3>CONTACT US</h3>
+                    </div>
+                    <ul className="sidebar-list">
+                        <li>Jl. Brigjen. H. Kasim, Ruko Jaya Raya, No.12 Palembang - South Sumatera</li>
+                        <li>0711-8254-56</li>
+                    </ul>
+                    <div className="sidebar-title">
+                        <h3>CONTACT US</h3>
+                    </div>
+                    <ul className="sidebar-list">
+                        <li>Jl. Brigjen. H. Kasim, Ruko Jaya Raya, No.12 Palembang - South Sumatera</li>
+                        <li>0711-8254-56</li>
+                    </ul>
                     <div className="tp-sidebar-social">
                         <SocialLinks />
                     </div>
