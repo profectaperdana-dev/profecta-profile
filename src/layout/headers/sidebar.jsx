@@ -16,23 +16,27 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
                     <div className="sidebar-title">
                         <h3>CONTACT US</h3>
                     </div>
-                    <ul className="sidebar-list">
-                        <li>Jl. Brigjen. H. Kasim, Ruko Jaya Raya, No.12 Palembang - South Sumatera</li>
-                        <li>0711-8254-56</li>
-                    </ul>
+                    <br>
                     <div className="sidebar-title">
-                        <h3>CONTACT US</h3>
+                        <h5>Palembang</h5>
                     </div>
                     <ul className="sidebar-list">
                         <li>Jl. Brigjen. H. Kasim, Ruko Jaya Raya, No.12 Palembang - South Sumatera</li>
                         <li>0711-8254-56</li>
                     </ul>
                     <div className="sidebar-title">
-                        <h3>CONTACT US</h3>
+                        <h5>Jambi</h5>
                     </div>
                     <ul className="sidebar-list">
-                        <li>Jl. Brigjen. H. Kasim, Ruko Jaya Raya, No.12 Palembang - South Sumatera</li>
-                        <li>0711-8254-56</li>
+                        <li>Jl.Abdul Rahman Saleh Kel.Pasir Putih Kec.Jambi Selatan, Kota Jambi</li>
+                        <li>0811-7819-980</li>
+                    </ul>
+                    <div className="sidebar-title">
+                        <h5>Bengkulu</h5>
+                    </div>
+                    <ul className="sidebar-list">
+                        <li>Jl. Kapuas no.17 RT 014 / Rw 004 , Padang Harapan , Gading cempaka, Kota Bengkulu</li>
+                        <li>0811-6119-009</li>
                     </ul>
                     <div className="tp-sidebar-social">
                         <SocialLinks />
