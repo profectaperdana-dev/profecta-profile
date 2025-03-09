@@ -17,9 +17,8 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
                         <h3>CONTACT US</h3>
                     </div>
                     <ul className="sidebar-list">
-                        <li>27 Division St, New York</li>
-                        <li>+1 800 123 456 78</li>
-                        <li>sectox@mail.com</li>
+                        <li>Jl. Brigjen. H. Kasim, Ruko Jaya Raya, No.12 Palembang - South Sumatera</li>
+                        <li>0711-8254-56</li>
                     </ul>
                     <div className="tp-sidebar-social">
                         <SocialLinks />
