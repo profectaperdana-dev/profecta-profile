@@ -13,7 +13,8 @@ const NavMenu = () => {
             <ul className="submenu">
               {item.sub_menus.map((sub, i) => (
                 <li key={i}>
-                  <Link href={sub.link}>{sub.title} ssss</Link>
+                  <Link href={sub.link}>{sub.title}</Link>
+                  ssss
                 </li>
               ))}
             </ul>
