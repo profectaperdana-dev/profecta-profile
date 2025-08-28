@@ -21,7 +21,6 @@ const NavMenu = () => {
           </li>
         ))}
       </ul>
-      <p>test</p>
     </>
   );
 };
