@@ -15,6 +15,9 @@ const NavMenu = () => {
                 <li key={i}>
                   <Link href={sub.link}>{sub.title}</Link>
                 </li>
+              <li key={i}>
+                  <Link href={sub.link}>{sub.title}</Link>
+                </li>
               ))}
             </ul>
             }
