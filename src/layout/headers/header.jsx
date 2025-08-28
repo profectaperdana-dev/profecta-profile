@@ -56,7 +56,7 @@ const HeaderOne = () => {
                   <Link href="/">
                     <img
                       width={150}
-                      src="https://apps.profectaperdana.com/images/new_logo.png"
+                      src="https://apps.profectaperdana.com/images/logo_web.png"
                       alt="logo"
                     />
                   </Link>
