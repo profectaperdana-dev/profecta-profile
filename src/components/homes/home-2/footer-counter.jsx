@@ -47,7 +47,7 @@ const FooterCounter = () => {
             <div className="col-xl-3 col-lg-6 col-md-6 text-lg-start mb-30">
               <div className="tp-counter-logo">
                 <img
-                  src={`https://apps.profectaperdana.com/images/logos.png`}
+                  src={`https://apps.profectaperdana.com/images/new_logo.png`}
                   alt="theme-pure"
                 />
               </div>
