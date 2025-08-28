@@ -14,7 +14,6 @@ const NavMenu = () => {
               {item.sub_menus.map((sub, i) => (
                 <li key={i}>
                   <Link href={sub.link}>{sub.title}</Link>
-                  ssss
                 </li>
               ))}
             </ul>
@@ -22,6 +21,7 @@ const NavMenu = () => {
           </li>
         ))}
       </ul>
+      <p>test</p>
     </>
   );
 };
