@@ -19,7 +19,7 @@ const footer_content = {
   location_jambi: (
     <>
       {" "}
-      Jl.Abdul Rahman Saleh Kel.Pasir Putih Kec.Jambi Selatan, Kota Jambi <br />
+      Jl. Gatot Subroto No. 43, Sungai Asam, Kec. Ps Jambi, Kota Jambi 36123<br />
       Phone : 0811-7819-980
     </>
   ),
